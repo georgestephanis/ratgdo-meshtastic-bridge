@@ -67,6 +67,7 @@ ESP-NOW is ordinary 2.4 GHz Wi-Fi frames at a low rate, so expect about Wi-Fi ra
 - On a XIAO C6, switch to the **U.FL** connector with an external 2.4 GHz antenna (set `antenna_select` to `ALWAYS_ON` in `boards/xiao-esp32c6.yaml`) if the hop is long.
 - A DevKit V1's PCB antenna is fine for one or two walls; keep it away from metal boxes and the opener's motor housing.
 - The hub can sit right beside the radio and share its USB power supply.
+- On a **Heltec V4**, the GPS connector may be usable for the hub link instead of header pins; see *Radio side* in [hardware.md](hardware.md) (to be explored).
 
 ## Failure behaviour
 

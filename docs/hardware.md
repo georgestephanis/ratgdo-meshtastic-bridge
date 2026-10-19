@@ -119,6 +119,14 @@ The **hub** in option B sits beside the radio and shares its USB supply.
 Use any two free GPIOs on the Meshtastic radio. Examples (⚠ verify against your board's pinout and Meshtastic variant file):
 
 - **Heltec V3 / V4:** GPIO47 / GPIO48 on the header are not used by Meshtastic (the V4 uses 2, 5, 7 and 46 for its PA; 38–42 for GPS).
+- **Heltec V4, via the GPS connector (to be explored, untested):** the V4's GPS port is already a UART plus power. Meshtastic's V4 variant puts the GPS serial on **GPIO38** (GPS TX → board) and **GPIO39** (board → GPS), with GPS power switched by **GPIO34**. If you don't need GPS (a fixed node can use a fixed position instead), the port could carry the link with a plug-in cable and no header soldering:
+  1. Remove the GPS module, or leave it in. Set `position.gps_mode = NOT_PRESENT` so Meshtastic doesn't open its GPS UART on those pins.
+  2. Configure the serial module with `--rxd 38 --txd 39`: the ESP32's `mesh_tx_pin` goes to the connector's former GPS-TX pin, and `mesh_rx_pin` to its former GPS-RX pin.
+  3. ⚠ Two parts of the firmware are then configured for the same pins. If the GPS code still claims them, the link sees garbage or nothing; fall back to GPIO47/48.
+  4. ⚠ The connector's power pin is probably switched by GPIO34 and may stay **off** when GPS isn't present. Meter it before relying on it; otherwise power the ESP32 from the V4's 5 V pin or the shared USB supply, and use the connector only for the two data lines and ground.
+  5. ⚠ Check the connector's pin order against your board revision; the GPIO numbers above come from the firmware's variant file, not a physical pinout.
+
+  Results welcome as an issue or PR.
 - **M5Stack Unit C6L:** use the Grove port's two signal pins.
 
 ## PCB
