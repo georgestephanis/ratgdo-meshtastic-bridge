@@ -1,0 +1,118 @@
+# Home Assistant package: garage door status and control over Meshtastic.
+#
+# Requires the Meshtastic integration (https://github.com/meshtastic/home-assistant)
+# connected to a radio on the same channel as the garage bridge. Copy this
+# file to /config/packages/ and enable packages in configuration.yaml:
+#
+#   homeassistant:
+#     packages: !include_dir_named packages
+#
+# Then change the three values marked CHANGE ME below.
+#
+# Every HA with its own radio on the channel gets its own copy of the state.
+
+template:
+  - triggers:
+      - trigger: event
+        event_type: meshtastic_api_text_message
+    conditions:
+      # CHANGE ME if you renamed the tag (gdo_tag in the firmware).
+      - condition: template
+        value_template: "{{ (trigger.event.data.data.message | string).startswith('GDO1|') }}"
+    variables:
+      fields: >-
+        {% set ns = namespace(d={}) %}
+        {% for kv in (trigger.event.data.data.message | string).split('|')[1:] %}
+          {% set p = kv.split('=', 1) %}
+          {% if p | length == 2 %}{% set ns.d = dict(ns.d, **{p[0]: p[1]}) %}{% endif %}
+        {% endfor %}
+        {{ ns.d }}
+    sensor:
+      - name: "Garage door (mesh)"
+        unique_id: garage_mesh_door
+        icon: >-
+          {{ 'mdi:garage-open-variant' if fields.get('door') in ['open', 'opening', 'stopped']
+             else 'mdi:garage-variant' }}
+        state: "{{ fields.get('door', 'unknown') }}"
+        attributes:
+          light: "{{ fields.get('light') }}"
+          obstruction: "{{ fields.get('obst') }}"
+          event: "{{ fields.get('ev') }}"
+          from_node: "{{ trigger.event.data.data.from }}"
+          received: "{{ now().isoformat() }}"
+    binary_sensor:
+      - name: "Garage obstruction (mesh)"
+        unique_id: garage_mesh_obstruction
+        device_class: problem
+        state: "{{ fields.get('obst') == 'blocked' }}"
+      - name: "Garage light (mesh)"
+        unique_id: garage_mesh_light
+        device_class: light
+        state: "{{ fields.get('light') == 'on' }}"
+
+  # Goes "on" when no status has arrived for longer than two heartbeats
+  # (the firmware sends one every 6 h even when nothing changes).
+  - binary_sensor:
+      - name: "Garage mesh link stale"
+        unique_id: garage_mesh_stale
+        device_class: problem
+        state: >-
+          {% set r = state_attr('sensor.garage_door_mesh', 'received') %}
+          {{ r is none or (now() - as_datetime(r)).total_seconds() > 13 * 3600 }}
+
+script:
+  garage_mesh_command:
+    alias: "Garage: send mesh command"
+    mode: queued
+    fields:
+      command:
+        description: "close, open, stop, light_on, light_off or status"
+        example: close
+        required: true
+        selector:
+          select:
+            options: [close, open, stop, light_on, light_off, status]
+    sequence:
+      - action: notify.send_message
+        target:
+          # CHANGE ME: your Meshtastic channel's notify entity.
+          entity_id: notify.mesh_channel_examplemesh
+        data:
+          # CHANGE ME if you renamed the tag.
+          message: "GDO1!{{ command }}"
+
+cover:
+  - platform: template
+    covers:
+      garage_door_mesh:
+        friendly_name: "Garage door (mesh)"
+        device_class: garage
+        value_template: >-
+          {% set s = states('sensor.garage_door_mesh') %}
+          {{ s if s in ['open', 'closed', 'opening', 'closing'] else ('open' if s == 'stopped' else 'unknown') }}
+        availability_template: "{{ is_state('binary_sensor.garage_mesh_link_stale', 'off') }}"
+        open_cover:
+          - action: script.garage_mesh_command
+            data:
+              command: open
+        close_cover:
+          - action: script.garage_mesh_command
+            data:
+              command: close
+        stop_cover:
+          - action: script.garage_mesh_command
+            data:
+              command: stop
+
+automation:
+  - id: garage_mesh_obstruction_alert
+    alias: "Garage: obstruction reported over mesh"
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.garage_obstruction_mesh
+        to: "on"
+    actions:
+      - action: persistent_notification.create
+        data:
+          title: "Garage obstruction"
+          message: "The garage door's safety sensor reports an obstruction ({{ now().strftime('%H:%M') }})."

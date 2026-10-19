@@ -1,0 +1,47 @@
+# Opener-free bench test of the level-shifting circuit (see docs/hardware.md).
+# Sends 55 AA 0F F0 every 2 s through the TX stage onto a fake 12 V "red"
+# line and reads it back through the RX stage at 9600 baud, inverted, the same
+# way esphome-ratgdo drives the bus. Pins are for the XIAO ESP32-C6; for a
+# DevKit V1 use board esp32doit-devkit-v1, TX GPIO22, RX GPIO21, OBST GPIO23.
+
+esphome:
+  name: ratgdo-bench
+
+esp32:
+  board: esp32-c6-devkitc-1
+  variant: esp32c6
+  flash_size: 4MB
+  framework:
+    type: esp-idf
+
+logger:
+  level: DEBUG
+
+uart:
+  id: bus
+  baud_rate: 9600
+  tx_pin:
+    number: GPIO1
+    inverted: true      # GPIO HIGH = bus LOW (through Q1 or U3)
+  rx_pin:
+    number: GPIO2
+    inverted: true      # bus HIGH = GPIO LOW (through U1)
+  debug:
+    direction: BOTH
+    dummy_receiver: true
+    after:
+      timeout: 20ms
+
+interval:
+  - interval: 2s
+    then:
+      - uart.write:
+          id: bus
+          data: [0x55, 0xAA, 0x0F, 0xF0]   # alternating bits: worst case for slow edges
+
+binary_sensor:
+  - platform: gpio
+    name: "Obstruction raw"
+    pin:
+      number: GPIO21
+      inverted: true

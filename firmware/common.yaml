@@ -1,0 +1,273 @@
+# Shared logic for the ratgdo + Meshtastic bridge. Don't compile this file
+# directly: compile a board file (xiao-esp32c6.yaml or esp32-devkit-v1.yaml),
+# which sets the pins and includes this one.
+#
+# Message format (see README.md):
+#   status   GDO1|door=closed|light=off|obst=clear|ev=change
+#   command  GDO1!close   (sent by a node whose short name is allowed)
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2026.4.0
+  on_boot:
+    priority: -100
+    then:
+      - delay: 45s          # let the radio boot and ratgdo sync with the opener
+      - script.execute:
+          id: publish_status
+          ev: boot
+
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/ratgdo/esphome-ratgdo
+      ref: c11e9347b980d493421905613da4c7e502f886e2  # pinned (main @ 2026-10-16); bump deliberately after testing
+    components: [ratgdo]
+    refresh: 1d
+
+preferences:
+  flash_write_interval: 1min    # rolling code counter must survive reboots
+
+
+# Maintenance access only: a local access point for the web UI and OTA
+# updates. Nothing depends on it. Remove this block (and web_server/ota)
+# for a radio-only build.
+wifi:
+  ap:
+    ssid: "${name}-setup"
+    password: !secret maintenance_ap_password
+
+web_server:
+  port: 80
+  auth:
+    username: admin
+    password: !secret maintenance_ap_password
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+  - platform: web_server
+
+switch:
+  - platform: ratgdo
+    id: gdo_learn
+    ratgdo_id: gdo
+    type: learn
+    name: "Learn"
+    entity_category: config
+
+ratgdo:
+  id: gdo
+  input_gdo_pin: ${uart_rx_pin}
+  output_gdo_pin: ${uart_tx_pin}
+  input_obst_pin: ${input_obst_pin}
+  obst_sleep_low: true          # as upstream's v2.5 ESP32 board; try false if obstruction reads wrong
+  on_sync_failed:
+    then:
+      - script.execute:
+          id: publish_status
+          ev: sync_failed
+
+cover:
+  - platform: ratgdo
+    id: gdo_door
+    ratgdo_id: gdo
+    device_class: garage
+    name: "Door"
+    on_state_change:
+      - script.execute:
+          id: publish_status
+          ev: change
+
+light:
+  - platform: ratgdo
+    id: gdo_light
+    ratgdo_id: gdo
+    name: "Light"
+    on_turn_on:
+      - script.execute:
+          id: publish_status
+          ev: change
+    on_turn_off:
+      - script.execute:
+          id: publish_status
+          ev: change
+
+binary_sensor:
+  - platform: ratgdo
+    type: obstruction
+    id: gdo_obstruction
+    ratgdo_id: gdo
+    name: "Obstruction"
+    device_class: problem
+    on_state:
+      - script.execute:
+          id: publish_status
+          ev: change
+  - platform: ratgdo
+    type: motion
+    id: gdo_motion
+    ratgdo_id: gdo
+    name: "Motion"
+    device_class: motion
+
+# These hold the Security+ 2.0 rolling code and client ID in flash. Required:
+# without them the opener stops accepting commands after a reboot.
+number:
+  - platform: ratgdo
+    id: gdo_rolling_code_counter
+    ratgdo_id: gdo
+    type: rolling_code_counter
+    name: "Rolling code counter"
+    entity_category: config
+    mode: box
+  - platform: ratgdo
+    id: gdo_client_id
+    ratgdo_id: gdo
+    type: client_id
+    name: "Client ID"
+    entity_category: config
+    mode: box
+  - platform: ratgdo
+    id: gdo_opening_duration
+    ratgdo_id: gdo
+    type: opening_duration
+    name: "Opening duration"
+    entity_category: config
+  - platform: ratgdo
+    id: gdo_closing_duration
+    ratgdo_id: gdo
+    type: closing_duration
+    name: "Closing duration"
+    entity_category: config
+
+uart:
+  id: mesh_uart
+  tx_pin: ${mesh_tx_pin}
+  rx_pin: ${mesh_rx_pin}
+  baud_rate: ${mesh_baud}
+  rx_buffer_size: 512
+
+globals:
+  - id: mesh_rx_line
+    type: std::string
+    restore_value: false
+
+text_sensor:
+  - platform: template
+    id: last_mesh_command
+    name: "Last mesh command"
+    entity_category: diagnostic
+
+script:
+  # Sends one status line to the radio, which broadcasts it on its primary
+  # channel. mode: restart + a short delay coalesces bursts (opening -> open,
+  # light + door together) into one message to save airtime.
+  - id: publish_status
+    mode: restart
+    parameters:
+      ev: string
+    then:
+      - delay: 3s
+      - uart.write:
+          id: mesh_uart
+          data: !lambda |-
+            std::string door;
+            auto op = id(gdo_door).current_operation;
+            float pos = id(gdo_door).position;
+            if (op == COVER_OPERATION_OPENING) door = "opening";
+            else if (op == COVER_OPERATION_CLOSING) door = "closing";
+            else if (pos >= 0.99f) door = "open";
+            else if (pos <= 0.01f) door = "closed";
+            else door = "stopped";
+            std::string light = id(gdo_light).remote_values.is_on() ? "on" : "off";
+            std::string obst = id(gdo_obstruction).state ? "blocked" : "clear";
+            // No trailing newline: the radio's serial module sends whatever
+            // arrives before its read timeout as one text message.
+            std::string msg = std::string("${gdo_tag}|door=") + door + "|light=" + light +
+                              "|obst=" + obst + "|ev=" + ev;
+            ESP_LOGI("mesh", "TX %s", msg.c_str());
+            return std::vector<uint8_t>(msg.begin(), msg.end());
+
+  - id: handle_mesh_line
+    mode: queued
+    max_runs: 5
+    parameters:
+      line: string
+    then:
+      - lambda: |-
+          // The radio prints incoming texts as "<short name>: <text>".
+          auto sep = line.find(": ");
+          if (sep == std::string::npos) return;
+          std::string sender = line.substr(0, sep);
+          std::string body = line.substr(sep + 2);
+          const std::string prefix = "${gdo_tag}!";
+          if (body.rfind(prefix, 0) != 0) return;   // not for us
+          std::string cmd = body.substr(prefix.size());
+          while (!cmd.empty() && (cmd.back() == ' ' || cmd.back() == '\r')) cmd.pop_back();
+
+          const std::string allowed = ",${allowed_senders},";
+          if (allowed.find("," + sender + ",") == std::string::npos) {
+            ESP_LOGW("mesh", "ignored '%s' from unlisted sender '%s'", cmd.c_str(), sender.c_str());
+            id(last_mesh_command).publish_state(sender + ": " + cmd + " (denied)");
+            return;
+          }
+          id(last_mesh_command).publish_state(sender + ": " + cmd);
+          ESP_LOGI("mesh", "command '%s' from %s", cmd.c_str(), sender.c_str());
+
+          if (cmd == "close") {
+            id(gdo_door).make_call().set_command_close().perform();
+          } else if (cmd == "open") {
+            if (std::string("${allow_open}") != "true") {
+              ESP_LOGW("mesh", "open over mesh is disabled (allow_open)");
+              id(publish_status).execute(std::string("denied_open"));
+              return;
+            }
+            id(gdo_door).make_call().set_command_open().perform();
+          } else if (cmd == "stop") {
+            id(gdo_door).make_call().set_command_stop().perform();
+          } else if (cmd == "light_on") {
+            id(gdo_light).turn_on().perform();
+          } else if (cmd == "light_off") {
+            id(gdo_light).turn_off().perform();
+          } else if (cmd != "status") {
+            id(publish_status).execute(std::string("unknown_cmd"));
+            return;
+          }
+          // Acknowledge with fresh status; state changes also publish on
+          // their own, and mode: restart folds them into one message.
+          id(publish_status).execute(std::string("ack_") + cmd);
+
+interval:
+  # Read the radio's serial output and split it into lines.
+  - interval: 50ms
+    then:
+      - lambda: |-
+          uint8_t c;
+          while (id(mesh_uart).available() && id(mesh_uart).read_byte(&c)) {
+            if (c == '\n' || c == '\r') {
+              if (!id(mesh_rx_line).empty()) {
+                id(handle_mesh_line).execute(id(mesh_rx_line));
+                id(mesh_rx_line).clear();
+              }
+            } else if (id(mesh_rx_line).size() < 240) {
+              id(mesh_rx_line).push_back((char) c);
+            }
+          }
+  - interval: ${heartbeat_interval}
+    then:
+      - script.execute:
+          id: publish_status
+          ev: heartbeat
+
+button:
+  - platform: restart
+    name: "Restart"
+  - platform: template
+    name: "Send status to mesh"
+    on_press:
+      - script.execute:
+          id: publish_status
+          ev: manual

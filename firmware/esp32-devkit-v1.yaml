@@ -1,0 +1,45 @@
+# ESP32 DevKit V1 (ESP32-WROOM-32, 30/38-pin) build of the ratgdo + Meshtastic
+# bridge. Same chip as upstream ratgdo's v2.5 ESP32 board, so the opener-side
+# pins match upstream's (wemos D1 mini32 D1/D2/D7 = GPIO22/21/23).
+#   uvx esphome run esp32-devkit-v1.yaml
+
+substitutions:
+  # --- bridge behaviour (override in your board file if you like) ---
+  name: garage-mesh-bridge
+  friendly_name: "Garage"
+  # Tag that prefixes every message for this opener. Keep it short (airtime).
+  gdo_tag: "GDO1"
+  # Meshtastic short names allowed to send commands, comma-separated, no spaces.
+  allowed_senders: "HOMA,HOMB"
+  # Accept "open" over the mesh? "close", "stop", "light_*" and "status" are
+  # always accepted from allowed senders. Opening a garage remotely is the
+  # risky direction, so it's off by default.
+  allow_open: "false"
+  # Periodic status even when nothing changes, so receivers can spot a dead link.
+  heartbeat_interval: 6h
+  mesh_baud: "9600"
+
+  # --- opener wire bus (see docs/hardware.md); board label in brackets ---
+  uart_tx_pin: GPIO22       # [D22] to the TX transistor/optocoupler
+  uart_rx_pin: GPIO21       # [D21] from the RX optocoupler
+  input_obst_pin: GPIO23    # [D23] obstruction sensor line
+  # --- link to the Meshtastic radio's serial module (TEXTMSG mode) ---
+  mesh_tx_pin: GPIO17       # [TX2] -> radio serial RXD
+  mesh_rx_pin: GPIO16       # [RX2] <- radio serial TXD
+
+packages:
+  bridge: !include common.yaml
+
+esp32:
+  board: esp32doit-devkit-v1
+  framework:
+    type: esp-idf
+
+# ratgdo hard-codes UART1 for the opener bus. ESPHome hands out hardware UARTs
+# in order, skipping the logger's: with USB logging on UART0 the radio link
+# would get UART1 and collide with ratgdo. So the serial logger is off and the
+# radio link gets UART0 (re-routed to TX2/RX2). Read logs in the web UI
+# (maintenance AP, http://192.168.4.1) or over OTA with `esphome logs`.
+logger:
+  level: INFO
+  baud_rate: 0
