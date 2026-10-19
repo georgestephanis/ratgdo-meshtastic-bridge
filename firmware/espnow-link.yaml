@@ -1,0 +1,79 @@
+# Authenticated ESP-NOW link, shared by the hub and the garage node.
+#
+# Each side sends sealed frames to one fixed peer (${peer_mac}) and accepts
+# frames only from that peer, with a valid HMAC tag (mesh_auth.h) and a
+# counter higher than the last one it accepted. Received payloads go to the
+# script espnow_payload, which the including file defines.
+#
+# Counters are kept in flash. On every boot the send counter jumps ahead by
+# 1000, so a counter that wasn't flushed before a power cut can't be reused.
+
+esphome:
+  includes:
+    - mesh_auth.h
+  on_boot:
+    priority: 600
+    then:
+      - lambda: id(espnow_tx_counter) += 1000;
+
+espnow:
+  peers:
+    - ${peer_mac}
+  on_receive:
+    - address: ${peer_mac}
+      then:
+        - lambda: |-
+            std::string payload;
+            uint32_t counter = 0;
+            if (!mesh_auth::open("${link_key}", data, size, payload, counter)) {
+              ESP_LOGW("espnow", "dropped frame with a bad tag (%u bytes)", (unsigned) size);
+              return;
+            }
+            if (counter <= id(espnow_rx_last)) {
+              ESP_LOGW("espnow", "dropped replayed/old frame (counter %u <= %u)",
+                       (unsigned) counter, (unsigned) id(espnow_rx_last));
+              return;
+            }
+            id(espnow_rx_last) = counter;
+            id(espnow_payload).execute(payload);
+
+globals:
+  - id: espnow_tx_counter
+    type: uint32_t
+    restore_value: true
+    initial_value: "0"
+  - id: espnow_rx_last
+    type: uint32_t
+    restore_value: true
+    initial_value: "0"
+
+script:
+  # Seal one payload and send it to the peer. Unicast, so ESP-NOW retries at
+  # the link layer and reports whether the peer acknowledged it.
+  - id: espnow_send_payload
+    mode: queued
+    max_runs: 5
+    parameters:
+      payload: string
+    then:
+      - espnow.send:
+          address: ${peer_mac}
+          data: !lambda |-
+            id(espnow_tx_counter) += 1;
+            std::string frame = mesh_auth::seal("${link_key}", id(espnow_tx_counter), payload);
+            ESP_LOGI("espnow", "TX %s", payload.c_str());
+            return std::vector<uint8_t>(frame.begin(), frame.end());
+          on_error:
+            - logger.log:
+                level: WARN
+                format: "ESP-NOW send failed (peer not acknowledging?)"
+
+button:
+  # After replacing one side of the link, the other side still remembers the
+  # old peer's counter and will drop everything until the new one passes it.
+  # Press this on the side that is dropping frames.
+  - platform: template
+    name: "Reset ESP-NOW replay counter"
+    entity_category: config
+    on_press:
+      - lambda: id(espnow_rx_last) = 0;

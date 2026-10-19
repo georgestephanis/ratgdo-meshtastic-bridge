@@ -1,0 +1,28 @@
+# Garage node, WIRED option: ratgdo ESP32 connected straight to the Meshtastic
+# radio's serial port (3 wires). Two devices total.
+#   uvx esphome run garage-wired.yaml
+# Pick your board by changing the "board:" line.
+
+substitutions:
+  name: garage-mesh-bridge
+  friendly_name: "Garage"
+  # Tag that prefixes every message for this opener. Keep it short (airtime).
+  gdo_tag: "GDO1"
+  # Meshtastic short names allowed to send commands, comma-separated, no spaces.
+  # ("status" is accepted from anyone.)
+  allowed_senders: "HOMA,HOMB"
+  # Accept "open" over the mesh? close, stop, light_on/off and status are
+  # always accepted from allowed senders. Opening a garage remotely is the
+  # risky direction, so it is off by default.
+  allow_open: "false"
+  # Periodic status even when nothing changes, so receivers can spot a dead link.
+  heartbeat_interval: 6h
+  # Maintenance AP channel (and ESP-NOW channel, in the hub setup).
+  wifi_channel: "6"
+  mesh_baud: "9600"         # must match the radio's serial.baud
+
+packages:
+  board: !include boards/esp32-devkit-v1.yaml      # or boards/xiao-esp32c6.yaml
+  maintenance: !include maintenance.yaml
+  node: !include common.yaml
+  transport: !include transport-uart.yaml

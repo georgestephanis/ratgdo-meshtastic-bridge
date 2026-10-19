@@ -1,0 +1,92 @@
+# Mesh hub logic: sits beside the Meshtastic radio (wired to its serial
+# port) and relays between the radio and the garage node over ESP-NOW.
+#
+#   radio -> hub:  every line the radio prints ("<short name>: <text>") that
+#                  looks like a command for ${gdo_tag} is sealed and sent to
+#                  the garage node. Everything else stays on the hub.
+#   hub -> radio:  every authenticated payload from the garage node is written
+#                  to the radio, which broadcasts it on its primary channel.
+#
+# The hub doesn't authorise commands; the garage node checks allowed_senders.
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2026.4.0
+
+preferences:
+  flash_write_interval: 1min    # ESP-NOW counters
+
+packages:
+  link: !include espnow-link.yaml
+
+uart:
+  id: mesh_uart
+  tx_pin: ${mesh_tx_pin}
+  rx_pin: ${mesh_rx_pin}
+  baud_rate: ${mesh_baud}
+  rx_buffer_size: 512
+
+globals:
+  - id: mesh_rx_line
+    type: std::string
+    restore_value: false
+
+text_sensor:
+  - platform: template
+    id: last_forwarded
+    name: "Last line forwarded to garage"
+    entity_category: diagnostic
+  - platform: template
+    id: last_from_garage
+    name: "Last line from garage"
+    entity_category: diagnostic
+
+script:
+  # Payload from the garage node -> radio. The 1 s tail keeps back-to-back
+  # lines from merging into one mesh message (the radio splits on silence).
+  - id: espnow_payload
+    mode: queued
+    max_runs: 5
+    parameters:
+      payload: string
+    then:
+      - lambda: id(last_from_garage).publish_state(payload);
+      - uart.write:
+          id: mesh_uart
+          data: !lambda return std::vector<uint8_t>(payload.begin(), payload.end());
+      - delay: 1s
+
+interval:
+  # Radio output -> lines -> commands for the garage node.
+  - interval: 50ms
+    then:
+      - lambda: |-
+          uint8_t c;
+          while (id(mesh_uart).available() && id(mesh_uart).read_byte(&c)) {
+            if (c == '\n' || c == '\r') {
+              std::string line = id(mesh_rx_line);
+              id(mesh_rx_line).clear();
+              if (line.empty()) continue;
+              // Only forward "<sender>: ${gdo_tag}!..." so ordinary chat on the
+              // channel never leaves the hub.
+              auto sep = line.find(": ");
+              if (sep == std::string::npos ||
+                  line.compare(sep + 2, std::string("${gdo_tag}!").size(), "${gdo_tag}!") != 0)
+                continue;
+              id(last_forwarded).publish_state(line);
+              id(espnow_send_payload).execute(line);
+            } else if (id(mesh_rx_line).size() < 240) {
+              id(mesh_rx_line).push_back((char) c);
+            }
+          }
+
+button:
+  - platform: restart
+    name: "Restart"
+  - platform: template
+    name: "Ask garage for status"
+    on_press:
+      - script.execute:
+          id: espnow_send_payload
+          payload: "HUB: ${gdo_tag}!status"

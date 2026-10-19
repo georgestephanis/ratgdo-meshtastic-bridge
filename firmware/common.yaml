@@ -1,6 +1,8 @@
-# Shared logic for the ratgdo + Meshtastic bridge. Don't compile this file
-# directly: compile a board file (xiao-esp32c6.yaml or esp32-devkit-v1.yaml),
-# which sets the pins and includes this one.
+# ratgdo node logic: talks to the opener and speaks the GDO1 text protocol.
+# Transport-neutral: it calls script mesh_send to send a line, and a transport
+# package (transport-uart.yaml or transport-espnow.yaml) calls
+# handle_mesh_line for each line received. Don't compile this directly; see
+# garage-wired.yaml and garage-espnow.yaml.
 #
 # Message format (see README.md):
 #   status   GDO1|door=closed|light=off|obst=clear|ev=change
@@ -31,24 +33,6 @@ preferences:
   flash_write_interval: 1min    # rolling code counter must survive reboots
 
 
-# Maintenance access only: a local access point for the web UI and OTA
-# updates. Nothing depends on it. Remove this block (and web_server/ota)
-# for a radio-only build.
-wifi:
-  ap:
-    ssid: "${name}-setup"
-    password: !secret maintenance_ap_password
-
-web_server:
-  port: 80
-  auth:
-    username: admin
-    password: !secret maintenance_ap_password
-
-ota:
-  - platform: esphome
-    password: !secret ota_password
-  - platform: web_server
 
 switch:
   - platform: ratgdo
@@ -143,18 +127,6 @@ number:
     name: "Closing duration"
     entity_category: config
 
-uart:
-  id: mesh_uart
-  tx_pin: ${mesh_tx_pin}
-  rx_pin: ${mesh_rx_pin}
-  baud_rate: ${mesh_baud}
-  rx_buffer_size: 512
-
-globals:
-  - id: mesh_rx_line
-    type: std::string
-    restore_value: false
-
 text_sensor:
   - platform: template
     id: last_mesh_command
@@ -162,8 +134,8 @@ text_sensor:
     entity_category: diagnostic
 
 script:
-  # Sends one status line to the radio, which broadcasts it on its primary
-  # channel. mode: restart + a short delay coalesces bursts (opening -> open,
+  # Builds one status line and hands it to the transport, which gets it to
+  # the radio for broadcast on its primary channel. mode: restart + a short delay coalesces bursts (opening -> open,
   # light + door together) into one message to save airtime.
   - id: publish_status
     mode: restart
@@ -171,9 +143,9 @@ script:
       ev: string
     then:
       - delay: 3s
-      - uart.write:
-          id: mesh_uart
-          data: !lambda |-
+      - script.execute:
+          id: mesh_send
+          line: !lambda |-
             std::string door;
             auto op = id(gdo_door).current_operation;
             float pos = id(gdo_door).position;
@@ -184,12 +156,10 @@ script:
             else door = "stopped";
             std::string light = id(gdo_light).remote_values.is_on() ? "on" : "off";
             std::string obst = id(gdo_obstruction).state ? "blocked" : "clear";
-            // No trailing newline: the radio's serial module sends whatever
-            // arrives before its read timeout as one text message.
             std::string msg = std::string("${gdo_tag}|door=") + door + "|light=" + light +
                               "|obst=" + obst + "|ev=" + ev;
             ESP_LOGI("mesh", "TX %s", msg.c_str());
-            return std::vector<uint8_t>(msg.begin(), msg.end());
+            return msg;
 
   - id: handle_mesh_line
     mode: queued
@@ -208,8 +178,10 @@ script:
           std::string cmd = body.substr(prefix.size());
           while (!cmd.empty() && (cmd.back() == ' ' || cmd.back() == '\r')) cmd.pop_back();
 
+          // "status" only reads, so anyone on the channel (or the hub's own
+          // test button) may ask; everything else needs an allowed sender.
           const std::string allowed = ",${allowed_senders},";
-          if (allowed.find("," + sender + ",") == std::string::npos) {
+          if (cmd != "status" && allowed.find("," + sender + ",") == std::string::npos) {
             ESP_LOGW("mesh", "ignored '%s' from unlisted sender '%s'", cmd.c_str(), sender.c_str());
             id(last_mesh_command).publish_state(sender + ": " + cmd + " (denied)");
             return;
@@ -241,21 +213,6 @@ script:
           id(publish_status).execute(std::string("ack_") + cmd);
 
 interval:
-  # Read the radio's serial output and split it into lines.
-  - interval: 50ms
-    then:
-      - lambda: |-
-          uint8_t c;
-          while (id(mesh_uart).available() && id(mesh_uart).read_byte(&c)) {
-            if (c == '\n' || c == '\r') {
-              if (!id(mesh_rx_line).empty()) {
-                id(handle_mesh_line).execute(id(mesh_rx_line));
-                id(mesh_rx_line).clear();
-              }
-            } else if (id(mesh_rx_line).size() < 240) {
-              id(mesh_rx_line).push_back((char) c);
-            }
-          }
   - interval: ${heartbeat_interval}
     then:
       - script.execute:

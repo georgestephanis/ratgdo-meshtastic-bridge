@@ -1,0 +1,51 @@
+# Transport: garage node wired straight to the Meshtastic radio's serial port.
+#
+# The radio's serial module (TEXTMSG mode) broadcasts whatever arrives before
+# its read timeout (250 ms) as one text message, and prints received texts as
+# "\r\n<short name>: <text>\r\n".
+
+uart:
+  id: mesh_uart
+  tx_pin: ${mesh_tx_pin}
+  rx_pin: ${mesh_rx_pin}
+  baud_rate: ${mesh_baud}
+  rx_buffer_size: 512
+
+globals:
+  - id: mesh_rx_line
+    type: std::string
+    restore_value: false
+
+script:
+  # One line out to the radio. No trailing newline: the radio ends a message
+  # on silence, not on a newline. The 1 s tail keeps back-to-back lines from
+  # merging into one message.
+  - id: mesh_send
+    mode: queued
+    max_runs: 5
+    parameters:
+      line: string
+    then:
+      - uart.write:
+          id: mesh_uart
+          data: !lambda |-
+            ESP_LOGI("mesh", "TX %s", line.c_str());
+            return std::vector<uint8_t>(line.begin(), line.end());
+      - delay: 1s
+
+interval:
+  # Read the radio's serial output and split it into lines.
+  - interval: 50ms
+    then:
+      - lambda: |-
+          uint8_t c;
+          while (id(mesh_uart).available() && id(mesh_uart).read_byte(&c)) {
+            if (c == '\n' || c == '\r') {
+              if (!id(mesh_rx_line).empty()) {
+                id(handle_mesh_line).execute(id(mesh_rx_line));
+                id(mesh_rx_line).clear();
+              }
+            } else if (id(mesh_rx_line).size() < 240) {
+              id(mesh_rx_line).push_back((char) c);
+            }
+          }

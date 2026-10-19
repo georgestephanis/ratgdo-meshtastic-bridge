@@ -1,0 +1,32 @@
+# Garage node, ESP-NOW option: ratgdo ESP32 with no wire to the radio. It
+# talks over ESP-NOW to a hub (hub.yaml / mesh-hub.yaml) that is wired to the
+# radio. Three devices total. See docs/espnow-hub.md.
+#   uvx esphome run garage-espnow.yaml
+# Pick your board by changing the "board:" line.
+
+substitutions:
+  name: garage-mesh-bridge
+  friendly_name: "Garage"
+  # Tag that prefixes every message for this opener. Keep it short (airtime).
+  gdo_tag: "GDO1"
+  # Meshtastic short names allowed to send commands, comma-separated, no spaces.
+  # ("status" is accepted from anyone.)
+  allowed_senders: "HOMA,HOMB"
+  # Accept "open" over the mesh? close, stop, light_on/off and status are
+  # always accepted from allowed senders. Opening a garage remotely is the
+  # risky direction, so it is off by default.
+  allow_open: "false"
+  # Periodic status even when nothing changes, so receivers can spot a dead link.
+  heartbeat_interval: 6h
+  # Maintenance AP channel (and ESP-NOW channel, in the hub setup).
+  wifi_channel: "6"
+  # The hub's Wi-Fi MAC (printed in its log at boot, and on its web page).
+  peer_mac: "AA:BB:CC:00:00:02"
+  # Shared secret for the ESP-NOW link; the same value goes in the hub.
+  link_key: !secret espnow_link_key
+
+packages:
+  board: !include boards/esp32-devkit-v1.yaml      # or boards/xiao-esp32c6.yaml
+  maintenance: !include maintenance.yaml
+  node: !include common.yaml
+  transport: !include transport-espnow.yaml

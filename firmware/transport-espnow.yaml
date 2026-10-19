@@ -1,0 +1,28 @@
+# Transport: garage node talks to a mesh hub over ESP-NOW (no wires to the
+# radio). The hub, not this node, is wired to the Meshtastic radio.
+
+packages:
+  link: !include espnow-link.yaml
+
+script:
+  - id: mesh_send
+    mode: queued
+    max_runs: 5
+    parameters:
+      line: string
+    then:
+      - script.execute:
+          id: espnow_send_payload
+          payload: !lambda return line;
+      - script.wait: espnow_send_payload
+
+  # Each payload from the hub is one line the radio printed, e.g. "HOMA: GDO1!close".
+  - id: espnow_payload
+    mode: queued
+    max_runs: 5
+    parameters:
+      payload: string
+    then:
+      - script.execute:
+          id: handle_mesh_line
+          line: !lambda return payload;

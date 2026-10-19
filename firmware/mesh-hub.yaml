@@ -1,0 +1,25 @@
+# Mesh hub, ESP-NOW option: an ESP32 wired to the Meshtastic radio's serial
+# port that relays to and from the garage node over ESP-NOW. Put it (and the
+# radio) wherever LoRa reception is good; the garage node only needs to be in
+# ESP-NOW range. See docs/espnow-hub.md.
+#   uvx esphome run mesh-hub.yaml
+# Pick your board by changing the "board:" line.
+
+substitutions:
+  name: garage-mesh-hub
+  friendly_name: "Garage mesh hub"
+  # Must match the garage node's gdo_tag; only "<sender>: GDO1!..." lines are
+  # forwarded to the garage.
+  gdo_tag: "GDO1"
+  mesh_baud: "9600"         # must match the radio's serial.baud
+  # Must match the garage node's wifi_channel.
+  wifi_channel: "6"
+  # The garage node's Wi-Fi MAC (printed in its log at boot, and on its web page).
+  peer_mac: "AA:BB:CC:00:00:01"
+  # Shared secret for the ESP-NOW link; the same value goes in the garage node.
+  link_key: !secret espnow_link_key
+
+packages:
+  board: !include boards/esp32-devkit-v1.yaml      # or boards/xiao-esp32c6.yaml
+  maintenance: !include maintenance.yaml
+  hub: !include hub.yaml

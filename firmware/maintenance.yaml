@@ -1,0 +1,24 @@
+# Maintenance access, shared by every device in this repo: a local Wi-Fi
+# access point with the web UI (logs, buttons, OTA upload). Nothing in normal
+# operation depends on it.
+#
+# The AP's channel is fixed with ${wifi_channel}. In the ESP-NOW setup that
+# matters: ESP-NOW rides on the same radio and channel as the AP, so the hub
+# and the garage node must use the same wifi_channel.
+
+wifi:
+  ap:
+    ssid: "${name}-setup"
+    password: !secret maintenance_ap_password
+    channel: ${wifi_channel}
+
+web_server:
+  port: 80
+  auth:
+    username: admin
+    password: !secret maintenance_ap_password
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+  - platform: web_server

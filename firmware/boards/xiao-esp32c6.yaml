@@ -1,0 +1,39 @@
+# Board: Seeed XIAO ESP32-C6. Pins for every role; a role uses only the ones
+# it needs. XIAO pin in brackets.
+
+substitutions:
+  # Opener wire bus (garage node only; see docs/hardware.md)
+  uart_tx_pin: GPIO1        # [D1] to the TX transistor/optocoupler
+  uart_rx_pin: GPIO2        # [D2] from the RX optocoupler
+  input_obst_pin: GPIO21    # [D3] obstruction sensor line
+  # Link to the Meshtastic radio's serial module (wired garage node, or hub).
+  # Not D6/GPIO16 for TX: it's UART0 TX and the boot ROM prints there, which
+  # the radio would broadcast as a text message.
+  mesh_tx_pin: GPIO0        # [D0] -> radio serial RXD
+  mesh_rx_pin: GPIO17       # [D7] <- radio serial TXD
+
+esp32:
+  board: esp32-c6-devkitc-1   # generic C6 target; the XIAO C6 has 4 MB flash
+  variant: esp32c6
+  flash_size: 4MB
+  framework:
+    type: esp-idf
+
+# Logs go to the C6's built-in USB serial/JTAG, so the hardware UARTs stay
+# free: the radio link gets UART0 and ratgdo keeps its hard-coded UART1.
+logger:
+  level: INFO
+
+# RF switch: GPIO3 low = switch powered, GPIO14 low = onboard antenna
+# (high = U.FL, worth it for a long ESP-NOW hop).
+switch:
+  - platform: gpio
+    pin: GPIO3
+    id: rf_switch_power
+    restore_mode: ALWAYS_OFF
+    internal: true
+  - platform: gpio
+    pin: GPIO14
+    id: antenna_select
+    restore_mode: ALWAYS_OFF
+    internal: true

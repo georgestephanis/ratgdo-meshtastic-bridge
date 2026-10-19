@@ -18,11 +18,11 @@ esphome-ratgdo opens its UART **inverted** (`begin(9600, 8N1, rx, tx, true)`). A
 | Bus TX (`uart_tx_pin`) | GPIO22 (D22) | GPIO1 (D1) |
 | Bus RX (`uart_rx_pin`) | GPIO21 (D21) | GPIO2 (D2) |
 | Obstruction (`input_obst_pin`) | GPIO23 (D23) | GPIO21 (D3) |
-| To radio RXD (`mesh_tx_pin`) | GPIO17 (TX2) | GPIO0 (D0) |
-| From radio TXD (`mesh_rx_pin`) | GPIO16 (RX2) | GPIO17 (D7) |
+| To radio RXD (`mesh_tx_pin`, wired node or hub) | GPIO17 (TX2) | GPIO0 (D0) |
+| From radio TXD (`mesh_rx_pin`, wired node or hub) | GPIO16 (RX2) | GPIO17 (D7) |
 
 - **XIAO C6:** don't use D6/GPIO16 for the mesh TX. It's UART0 TX, and the boot ROM prints there at reset; the radio would broadcast that as a text message.
-- **DevKit V1:** the serial logger is turned off in firmware (see `esp32-devkit-v1.yaml`), because ratgdo hard-codes UART1 and ESPHome would otherwise give the radio link UART1 too. Read logs from the web UI or with `esphome logs` over OTA.
+- **DevKit V1:** the serial logger is turned off in firmware (see `boards/esp32-devkit-v1.yaml`), because ratgdo hard-codes UART1 and ESPHome would otherwise give the radio link UART1 too. Read logs from the web UI or with `esphome logs` over OTA.
 - ⚠ Check your board's silkscreen against these GPIO numbers before wiring.
 
 ## Opener interface circuits
@@ -102,6 +102,17 @@ Pick one. Pin names below use the XIAO; substitute the DevKit pins from the tabl
 ```
 
 Pass: every `>>> 55:AA:0F:F0` in the log is followed by `<<< 55:AA:0F:F0`. Garbage or missing bytes mean the edges are too slow: lower R2 or R1.
+
+## Powering the garage node
+
+| Source | Verdict |
+|---|---|
+| USB power supply on the opener's ceiling outlet | Simplest. Goes down with mains power. |
+| **Opener's battery-backup connector** → LM2596 buck set to **5 V** → ESP32 5V/VIN | **Recommended** on openers with standby-battery support (built in or optional). A dedicated 12 V source separate from the data bus, and it keeps running during a power cut while the opener is on battery, which is when door state matters most. Set the buck to 5 V **before** connecting the ESP. ⚠ Check the connector's voltage and polarity with a meter first. |
+| The red wire ("power stealing", like a Nest thermostat) | **Doesn't work.** Red is the data line *and* the wall panel's power. rat-ratgdo tested a buck converter plus ESP8266 on it, and the draw [broke the bus](https://github.com/Kaldek/rat-ratgdo/blob/main/Using%20red%20wire%20for%20power.md). An ESP32 needs a radio on all the time (about 0.3–0.8 W continuous, no sleep possible, since ratgdo must keep listening), roughly 10–100× a Nest's average draw. A hold-up capacitor doesn't help: the problem is the steady load, and a capacitor on the bus also swallows the data pulses. |
+| A dry-contact wall button (older openers only) | Same problem. Riding out a 2 s button press at about 0.4 W would need about 15,000 µF (12 V → 6 V), and recharging it loads the line the opener is reading. |
+
+The **hub** in option B sits beside the radio and shares its USB supply.
 
 ## Radio side
 

@@ -1,0 +1,28 @@
+# Board: ESP32 DevKit V1 (ESP32-WROOM-32, 30/38-pin). Same chip as upstream
+# ratgdo's v2.5 ESP32 board, so the opener pins match upstream's (wemos D1
+# mini32 D1/D2/D7 = GPIO22/21/23). Board label in brackets.
+
+substitutions:
+  # Opener wire bus (garage node only; see docs/hardware.md)
+  uart_tx_pin: GPIO22       # [D22] to the TX transistor/optocoupler
+  uart_rx_pin: GPIO21       # [D21] from the RX optocoupler
+  input_obst_pin: GPIO23    # [D23] obstruction sensor line
+  # Link to the Meshtastic radio's serial module (wired garage node, or hub)
+  mesh_tx_pin: GPIO17       # [TX2] -> radio serial RXD
+  mesh_rx_pin: GPIO16       # [RX2] <- radio serial TXD
+
+esp32:
+  board: esp32doit-devkit-v1
+  framework:
+    type: esp-idf
+
+# ratgdo hard-codes UART1 for the opener bus. ESPHome hands out hardware UARTs
+# in order, skipping the logger's: with USB logging on UART0, a radio link
+# would get UART1 and collide with ratgdo. So the serial logger is off and the
+# radio link gets UART0 (re-routed to TX2/RX2). Read logs in the web UI
+# (maintenance AP, http://192.168.4.1) or over OTA with `esphome logs`.
+# (Only the wired garage node needs this; on a hub or ESP-NOW garage node you
+# may set baud_rate back to 115200.)
+logger:
+  level: INFO
+  baud_rate: 0

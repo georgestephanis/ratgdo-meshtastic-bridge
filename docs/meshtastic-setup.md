@@ -11,7 +11,7 @@
        --port /dev/ttyACM0 --rxd 48 --txd 47 --baud 9600
    ```
 
-   `--rxd` is the radio pin that **receives** from the ESP32 (wire it to `mesh_tx_pin`); `--txd` sends to the ESP32 (`mesh_rx_pin`). Close any phone app connected to the radio first: it takes the only client slot, and writes silently don't apply. Read the settings back with `--show`.
+   `--rxd` is the radio pin that **receives** from the ESP32, i.e. the garage node (option A) or the hub (option B); wire it to `mesh_tx_pin`; `--txd` sends to the ESP32 (`mesh_rx_pin`). Close any phone app connected to the radio first: it takes the only client slot, and writes silently don't apply. Read the settings back with `--show`.
 
 4. Role: `CLIENT` is fine. If this radio is also your relay node at that site, `ROUTER_LATE` works too; the serial module doesn't care.
 
@@ -44,4 +44,4 @@ On LongFast, a ~50-byte text takes about 1 s of airtime, and every relay repeats
 
 ## ESP-NOW?
 
-Stock Meshtastic firmware can't receive ESP-NOW: its ESP32 build config explicitly excludes the `ESP_NOW` library. A wired serial link avoids needing a custom radio firmware.
+Stock Meshtastic firmware can't receive ESP-NOW: its ESP32 build config explicitly excludes the `ESP_NOW` library. If the radio can't be wired to the opener, put a small ESP32 **hub** beside the radio instead ([espnow-hub.md](espnow-hub.md)); the radio is configured exactly as above, wired to the hub.
