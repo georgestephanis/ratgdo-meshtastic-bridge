@@ -19,7 +19,7 @@ Both ESP32s can be either supported board (DevKit V1 or XIAO C6), in any mix.
 
 ## Why a hub rather than ESP-NOW inside the radio?
 
-Stock Meshtastic firmware deliberately leaves out the ESP-NOW library (`lib_ignore` in `variants/esp32/esp32-common.ini`), so a radio can't listen for it. A custom Meshtastic build would mean a home-made module carried through every firmware release, and ESP-NOW would share the 2.4 GHz radio with Meshtastic's Bluetooth and Wi-Fi. A separate hub keeps the radio on stock firmware: the hub is just the "wire" from the wired option, made wireless.
+Stock Meshtastic firmware deliberately leaves out the ESP-NOW library (`lib_ignore` in `variants/esp32/esp32-common.ini`), so a radio can't listen for it. Re-enabling the library isn't enough on its own: it would also need a custom Meshtastic module, and the radio would then run a forked firmware for good. A separate hub keeps the radio on stock firmware; the hub is just the "wire" from the wired option, made wireless. The in-radio alternative is written up as a possible future option in [future-meshtastic-espnow-module.md](future-meshtastic-espnow-module.md).
 
 ## What crosses the ESP-NOW link
 

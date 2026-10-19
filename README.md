@@ -27,6 +27,8 @@ Pick whichever fits the building. The mesh protocol, the Home Assistant side and
                                   HMAC-sealed, anti-replay
 ```
 
+A third layout, ESP-NOW handled inside a custom Meshtastic build with no hub, is documented as a possible future option, but deliberately not built: [docs/future-meshtastic-espnow-module.md](docs/future-meshtastic-espnow-module.md).
+
 The ESP-NOW link is authenticated: frames carry a counter and an HMAC tag with a shared key, so frames can't be forged or replayed from outside the garage (ESPHome's ESP-NOW itself is unencrypted). Details in [docs/espnow-hub.md](docs/espnow-hub.md).
 
 ## Why not Home Assistant at the garage?
@@ -112,7 +114,7 @@ firmware/
   secrets.yaml.example
 meshtastic/configure_radio.py   enables the radio's serial module (TEXTMSG)
 homeassistant/packages/garage_mesh.yaml   receiving side: sensors, cover, command script
-docs/                        hardware, radio, ESP-NOW hub and HA details
+docs/                        hardware, radio, ESP-NOW hub, HA, and the future in-radio ESP-NOW idea
 ```
 
 ## Credits
