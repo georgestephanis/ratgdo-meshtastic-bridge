@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 670" width="1100" height="670" font-family="Helvetica, Arial, sans-serif">
+<title>BC337 ratgdo schematic</title>
+<style>
+.panel{fill:#fbfaf6;stroke:#ccc5b5;stroke-dasharray:5 4} .pt{font-size:15px;font-weight:bold;fill:#222}
+.ps{font-size:12px;fill:#777;font-style:italic} .res{fill:#fff;stroke:#8a1c1c;stroke-width:2}
+.body{fill:#fff8d6;stroke:#8a1c1c;stroke-width:2} .ref{font-size:13px;font-weight:bold;fill:#8a1c1c}
+.val{font-size:12px;fill:#444} .pn{font-size:10px;fill:#1a3a8a} .pl{font-size:11px;font-weight:bold;fill:#000}
+.pw{font-size:12px;font-weight:bold;fill:#000} .net{fill:#e9f0ff;stroke:#1a3a8a;stroke-width:1.5}
+.nl{font-size:12px;font-weight:bold;fill:#1a3a8a} .nt{font-size:12.5px;fill:#333}
+.warn{font-size:12.5px;fill:#b35900;font-weight:bold}
+</style>
+<rect width="100%" height="100%" fill="#fff"/>
+<rect x="20" y="20" width="340" height="360" rx="8" class="panel"/>
+<text x="34" y="44" class="pt" text-anchor="start">TX: ESP32 → opener</text>
+<text x="34" y="62" class="ps" text-anchor="start">GPIO high pulls RED low</text>
+<path d="M90,220 L82,211 L58,211 L58,229 L82,229 Z" class="net"/>
+<text x="70.0" y="224" class="nl" text-anchor="middle">TX</text>
+<polyline points="90,220 115.0,220" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="155.0,220 180,220" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<rect x="115.0" y="213" width="40" height="14" class="res"/>
+<text x="135.0" y="208" class="ref" text-anchor="middle">R1</text>
+<text x="135.0" y="242" class="val" text-anchor="middle">1k</text>
+<polyline points="180,220 210,220" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="180" cy="220" r="3.5" fill="#1a3a8a"/>
+<polyline points="180,220 180,245.0" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="180,285.0 180,310" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<rect x="173" y="245.0" width="14" height="40" class="res"/>
+<text x="192" y="263.0" class="ref" text-anchor="start">R2</text>
+<text x="192" y="278.0" class="val" text-anchor="start">10k</text>
+<polyline points="180,310 180,320" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="168,320 192,320" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="173,325 187,325" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="178,330 182,330" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="240" cy="220" r="22" class="body"/>
+<polyline points="210,220 230,220" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="230,207 230,233" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+<polyline points="230,214 245,200 245,180" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="230,226 245,240 245,260" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<path d="M245,240 l-10,-1.5 l4,-7 Z" fill="#000"/>
+<text x="214" y="214" class="pn" text-anchor="start">2</text>
+<text x="216" y="235" class="pl" text-anchor="start">B</text>
+<text x="250" y="190" class="pn" text-anchor="start">1</text>
+<text x="231" y="192" class="pl" text-anchor="start">C</text>
+<text x="250" y="256" class="pn" text-anchor="start">3</text>
+<text x="231" y="256" class="pl" text-anchor="start">E</text>
+<text x="268" y="216" class="ref" text-anchor="start">Q1</text>
+<text x="268" y="231" class="val" text-anchor="start">BC337</text>
+<polyline points="245,180 245,120" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<path d="M245,120 L253,111 L285,111 L285,129 L253,129 Z" class="net"/>
+<text x="269.0" y="124" class="nl" text-anchor="middle">RED</text>
+<polyline points="245,260 245,310" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="245,310 245,320" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="233,320 257,320" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="238,325 252,325" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="243,330 247,330" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<rect x="380" y="20" width="340" height="360" rx="8" class="panel"/>
+<text x="394" y="44" class="pt" text-anchor="start">RX: opener → ESP32</text>
+<text x="394" y="62" class="ps" text-anchor="start">RED high pulls RX low</text>
+<path d="M450,240 L442,231 L410,231 L410,249 L442,249 Z" class="net"/>
+<text x="426.0" y="244" class="nl" text-anchor="middle">RED</text>
+<polyline points="450,240 465.0,240" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="505.0,240 520,240" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<rect x="465.0" y="233" width="40" height="14" class="res"/>
+<text x="485.0" y="228" class="ref" text-anchor="middle">R3</text>
+<text x="485.0" y="262" class="val" text-anchor="middle">47k</text>
+<polyline points="520,240 550,240" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="520" cy="240" r="3.5" fill="#1a3a8a"/>
+<polyline points="520,240 520,260.0" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="520,300.0 520,320" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<rect x="513" y="260.0" width="14" height="40" class="res"/>
+<text x="532" y="278.0" class="ref" text-anchor="start">R4</text>
+<text x="532" y="293.0" class="val" text-anchor="start">10k</text>
+<polyline points="520,320 520,330" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="508,330 532,330" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="513,335 527,335" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="518,340 522,340" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="580" cy="240" r="22" class="body"/>
+<polyline points="550,240 570,240" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="570,227 570,253" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+<polyline points="570,234 585,220 585,200" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="570,246 585,260 585,280" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<path d="M585,260 l-10,-1.5 l4,-7 Z" fill="#000"/>
+<text x="554" y="234" class="pn" text-anchor="start">2</text>
+<text x="556" y="255" class="pl" text-anchor="start">B</text>
+<text x="590" y="210" class="pn" text-anchor="start">1</text>
+<text x="571" y="212" class="pl" text-anchor="start">C</text>
+<text x="590" y="276" class="pn" text-anchor="start">3</text>
+<text x="571" y="276" class="pl" text-anchor="start">E</text>
+<text x="608" y="236" class="ref" text-anchor="start">Q2</text>
+<text x="608" y="251" class="val" text-anchor="start">BC337</text>
+<polyline points="585,200 585,170" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="585" cy="170" r="3.5" fill="#1a3a8a"/>
+<polyline points="585,170 585,112.5" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="585,152.5 585,95" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<rect x="578" y="112.5" width="14" height="40" class="res"/>
+<text x="597" y="130.5" class="ref" text-anchor="start">R5</text>
+<text x="597" y="145.5" class="val" text-anchor="start">10k</text>
+<polyline points="585,95 585,85" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="573,85 597,85" fill="none" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="585" y="79" class="pw" text-anchor="middle">3V3</text>
+<polyline points="585,170 645,170" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<path d="M645,170 L653,161 L677,161 L677,179 L653,179 Z" class="net"/>
+<text x="665.0" y="174" class="nl" text-anchor="middle">RX</text>
+<polyline points="585,280 585,320" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="585,320 585,330" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="573,330 597,330" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="578,335 592,335" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="583,340 587,340" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<rect x="740" y="20" width="340" height="360" rx="8" class="panel"/>
+<text x="754" y="44" class="pt" text-anchor="start">OBST: obstruction → ESP32</text>
+<text x="754" y="62" class="ps" text-anchor="start">BLACK high pulls OBST low</text>
+<path d="M810,240 L802,231 L754,231 L754,249 L802,249 Z" class="net"/>
+<text x="778.0" y="244" class="nl" text-anchor="middle">BLACK</text>
+<polyline points="810,240 825.0,240" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="865.0,240 880,240" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<rect x="825.0" y="233" width="40" height="14" class="res"/>
+<text x="845.0" y="228" class="ref" text-anchor="middle">R6</text>
+<text x="845.0" y="262" class="val" text-anchor="middle">22k</text>
+<polyline points="880,240 910,240" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="880" cy="240" r="3.5" fill="#1a3a8a"/>
+<polyline points="880,240 880,260.0" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="880,300.0 880,320" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<rect x="873" y="260.0" width="14" height="40" class="res"/>
+<text x="892" y="278.0" class="ref" text-anchor="start">R7</text>
+<text x="892" y="293.0" class="val" text-anchor="start">10k</text>
+<polyline points="880,320 880,330" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="868,330 892,330" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="873,335 887,335" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="878,340 882,340" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="940" cy="240" r="22" class="body"/>
+<polyline points="910,240 930,240" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="930,227 930,253" fill="none" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+<polyline points="930,234 945,220 945,200" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="930,246 945,260 945,280" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<path d="M945,260 l-10,-1.5 l4,-7 Z" fill="#000"/>
+<text x="914" y="234" class="pn" text-anchor="start">2</text>
+<text x="916" y="255" class="pl" text-anchor="start">B</text>
+<text x="950" y="210" class="pn" text-anchor="start">1</text>
+<text x="931" y="212" class="pl" text-anchor="start">C</text>
+<text x="950" y="276" class="pn" text-anchor="start">3</text>
+<text x="931" y="276" class="pl" text-anchor="start">E</text>
+<text x="968" y="236" class="ref" text-anchor="start">Q3</text>
+<text x="968" y="251" class="val" text-anchor="start">BC337</text>
+<polyline points="945,200 945,170" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="945" cy="170" r="3.5" fill="#1a3a8a"/>
+<polyline points="945,170 945,112.5" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="945,152.5 945,95" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<rect x="938" y="112.5" width="14" height="40" class="res"/>
+<text x="957" y="130.5" class="ref" text-anchor="start">R8</text>
+<text x="957" y="145.5" class="val" text-anchor="start">10k</text>
+<polyline points="945,95 945,85" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="933,85 957,85" fill="none" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="945" y="79" class="pw" text-anchor="middle">3V3</text>
+<polyline points="945,170 1005,170" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<path d="M1005,170 L1013,161 L1053,161 L1053,179 L1013,179 Z" class="net"/>
+<text x="1033.0" y="174" class="nl" text-anchor="middle">OBST</text>
+<polyline points="945,280 945,320" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="945,320 945,330" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="933,330 957,330" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="938,335 952,335" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="943,340 947,340" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<rect x="20" y="400" width="340" height="250" rx="8" class="panel"/>
+<text x="34" y="424" class="pt" text-anchor="start">J1: opener terminals</text>
+<text x="34" y="442" class="ps" text-anchor="start">3-pin screw terminal, 5.08 mm</text>
+<rect x="140" y="470" width="60" height="90" class="body"/>
+<text x="170" y="462" class="ref" text-anchor="middle">J1</text>
+<text x="146" y="489" class="pn" text-anchor="start">1</text>
+<text x="196" y="489" class="pl" text-anchor="end">RED</text>
+<polyline points="200,485 250,485" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<path d="M250,485 L258,476 L290,476 L290,494 L258,494 Z" class="net"/>
+<text x="274.0" y="489" class="nl" text-anchor="middle">RED</text>
+<text x="146" y="519" class="pn" text-anchor="start">2</text>
+<text x="196" y="519" class="pl" text-anchor="end">WHITE</text>
+<polyline points="200,515 250,515" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="250,515 250,525" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="238,525 262,525" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="243,530 257,530" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="248,535 252,535" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<text x="146" y="549" class="pn" text-anchor="start">3</text>
+<text x="196" y="549" class="pl" text-anchor="end">BLACK</text>
+<polyline points="200,545 250,545" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<path d="M250,545 L258,536 L306,536 L306,554 L258,554 Z" class="net"/>
+<text x="282.0" y="549" class="nl" text-anchor="middle">BLACK</text>
+<rect x="380" y="400" width="340" height="250" rx="8" class="panel"/>
+<text x="394" y="424" class="pt" text-anchor="start">J2: to ESP32</text>
+<text x="394" y="442" class="ps" text-anchor="start">header or castellated pads</text>
+<rect x="500" y="470" width="60" height="150" class="body"/>
+<text x="530" y="462" class="ref" text-anchor="middle">J2</text>
+<text x="506" y="489" class="pn" text-anchor="start">1</text>
+<text x="556" y="489" class="pl" text-anchor="end">3V3</text>
+<polyline points="560,485 610,485" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="610,485 630,485" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="630,485 630,475" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="618,475 642,475" fill="none" stroke="#000" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="630" y="469" class="pw" text-anchor="middle">3V3</text>
+<text x="506" y="519" class="pn" text-anchor="start">2</text>
+<text x="556" y="519" class="pl" text-anchor="end">GND</text>
+<polyline points="560,515 610,515" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="610,515 610,525" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="598,525 622,525" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="603,530 617,530" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="608,535 612,535" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+<text x="506" y="549" class="pn" text-anchor="start">3</text>
+<text x="556" y="549" class="pl" text-anchor="end">TX</text>
+<polyline points="560,545 610,545" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<path d="M610,545 L618,536 L642,536 L642,554 L618,554 Z" class="net"/>
+<text x="630.0" y="549" class="nl" text-anchor="middle">TX</text>
+<text x="506" y="579" class="pn" text-anchor="start">4</text>
+<text x="556" y="579" class="pl" text-anchor="end">RX</text>
+<polyline points="560,575 610,575" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<path d="M610,575 L618,566 L642,566 L642,584 L618,584 Z" class="net"/>
+<text x="630.0" y="579" class="nl" text-anchor="middle">RX</text>
+<text x="506" y="609" class="pn" text-anchor="start">5</text>
+<text x="556" y="609" class="pl" text-anchor="end">OBST</text>
+<polyline points="560,605 610,605" fill="none" stroke="#1a3a8a" stroke-width="2" stroke-linejoin="round"/>
+<path d="M610,605 L618,596 L658,596 L658,614 L618,614 Z" class="net"/>
+<text x="638.0" y="609" class="nl" text-anchor="middle">OBST</text>
+<rect x="740" y="400" width="340" height="250" rx="8" class="panel"/>
+<text x="754" y="424" class="pt" text-anchor="start">Notes</text>
+<text x="754" y="442" class="ps" text-anchor="start"></text>
+<text x="754" y="444" class="nt" text-anchor="start">• Same-named flags are one net. In EasyEDA</text>
+<text x="754" y="463" class="nt" text-anchor="start">  use Net Labels or Net Ports with these names.</text>
+<text x="754" y="482" class="nt" text-anchor="start">• WHITE is ground: opener GND = ESP32 GND.</text>
+<text x="754" y="501" class="nt" text-anchor="start">• BC337 TO-92 pins: 1 = C, 2 = B, 3 = E.</text>
+<text x="754" y="520" class="nt" text-anchor="start">  Flat face toward you, legs down: C B E.</text>
+<text x="754" y="539" class="nt" text-anchor="start">• SMD BC817 (SOT-23) is a drop-in but its</text>
+<text x="754" y="558" class="nt" text-anchor="start">  pins differ: 1 = B, 2 = E, 3 = C.</text>
+<text x="754" y="577" class="nt" text-anchor="start">• ESP32 GPIOs: TX/RX/OBST map to uart_tx_pin,</text>
+<text x="754" y="596" class="nt" text-anchor="start">  uart_rx_pin, input_obst_pin in the firmware.</text>
+<text x="754" y="615" class="warn" text-anchor="start">• ⚠ Untested values. Bench-test first.</text>
+</svg>

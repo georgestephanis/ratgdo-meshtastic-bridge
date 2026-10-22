@@ -1,0 +1,657 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1190 550" width="1190" height="550" font-family="Helvetica, Arial, sans-serif">
+<title>BC337 ratgdo breadboard</title>
+<style>
+.board{fill:#f4f1ea;stroke:#cfc8b8} .gap{fill:#e4dfd3} .hole{fill:#5a5a5a}
+.lab{font-size:10px;fill:#888} .rl{font-size:11px;fill:#444} .tl{font-size:12px;font-weight:bold}
+.rv{font-size:11px;font-weight:bold;fill:#5a3e00} .pin{font-size:10px;font-weight:bold;fill:#222}
+.qn{font-size:10px;fill:#fff;font-weight:bold} .cap{font-size:12px;fill:#666;font-style:italic}
+.sub{font-size:12px;fill:#666} .lh{font-size:14px;font-weight:bold;fill:#222}
+.lt{font-size:12px;fill:#333} .lm{font-size:12px;fill:#333;font-family:Menlo,monospace}
+.lw{font-size:12px;fill:#b35900;font-weight:bold}
+</style>
+<rect width="100%" height="100%" fill="#fff"/>
+<rect x="30" y="68" width="640" height="384" rx="10" class="board"/>
+<rect x="30" y="248" width="640" height="24" class="gap"/>
+<line x1="40" y1="80" x2="660" y2="80" stroke="#d33" stroke-width="2"/>
+<text x="668" y="94" class="rl">3V3 (+)</text>
+<rect x="57" y="87" width="6" height="6" class="hole"/>
+<rect x="77" y="87" width="6" height="6" class="hole"/>
+<rect x="97" y="87" width="6" height="6" class="hole"/>
+<rect x="117" y="87" width="6" height="6" class="hole"/>
+<rect x="137" y="87" width="6" height="6" class="hole"/>
+<rect x="157" y="87" width="6" height="6" class="hole"/>
+<rect x="177" y="87" width="6" height="6" class="hole"/>
+<rect x="197" y="87" width="6" height="6" class="hole"/>
+<rect x="217" y="87" width="6" height="6" class="hole"/>
+<rect x="237" y="87" width="6" height="6" class="hole"/>
+<rect x="257" y="87" width="6" height="6" class="hole"/>
+<rect x="277" y="87" width="6" height="6" class="hole"/>
+<rect x="297" y="87" width="6" height="6" class="hole"/>
+<rect x="317" y="87" width="6" height="6" class="hole"/>
+<rect x="337" y="87" width="6" height="6" class="hole"/>
+<rect x="357" y="87" width="6" height="6" class="hole"/>
+<rect x="377" y="87" width="6" height="6" class="hole"/>
+<rect x="397" y="87" width="6" height="6" class="hole"/>
+<rect x="417" y="87" width="6" height="6" class="hole"/>
+<rect x="437" y="87" width="6" height="6" class="hole"/>
+<rect x="457" y="87" width="6" height="6" class="hole"/>
+<rect x="477" y="87" width="6" height="6" class="hole"/>
+<rect x="497" y="87" width="6" height="6" class="hole"/>
+<rect x="517" y="87" width="6" height="6" class="hole"/>
+<rect x="537" y="87" width="6" height="6" class="hole"/>
+<rect x="557" y="87" width="6" height="6" class="hole"/>
+<rect x="577" y="87" width="6" height="6" class="hole"/>
+<rect x="597" y="87" width="6" height="6" class="hole"/>
+<rect x="617" y="87" width="6" height="6" class="hole"/>
+<rect x="637" y="87" width="6" height="6" class="hole"/>
+<line x1="40" y1="120" x2="660" y2="120" stroke="#36c" stroke-width="2"/>
+<text x="668" y="114" class="rl">GND (−)</text>
+<rect x="57" y="107" width="6" height="6" class="hole"/>
+<rect x="77" y="107" width="6" height="6" class="hole"/>
+<rect x="97" y="107" width="6" height="6" class="hole"/>
+<rect x="117" y="107" width="6" height="6" class="hole"/>
+<rect x="137" y="107" width="6" height="6" class="hole"/>
+<rect x="157" y="107" width="6" height="6" class="hole"/>
+<rect x="177" y="107" width="6" height="6" class="hole"/>
+<rect x="197" y="107" width="6" height="6" class="hole"/>
+<rect x="217" y="107" width="6" height="6" class="hole"/>
+<rect x="237" y="107" width="6" height="6" class="hole"/>
+<rect x="257" y="107" width="6" height="6" class="hole"/>
+<rect x="277" y="107" width="6" height="6" class="hole"/>
+<rect x="297" y="107" width="6" height="6" class="hole"/>
+<rect x="317" y="107" width="6" height="6" class="hole"/>
+<rect x="337" y="107" width="6" height="6" class="hole"/>
+<rect x="357" y="107" width="6" height="6" class="hole"/>
+<rect x="377" y="107" width="6" height="6" class="hole"/>
+<rect x="397" y="107" width="6" height="6" class="hole"/>
+<rect x="417" y="107" width="6" height="6" class="hole"/>
+<rect x="437" y="107" width="6" height="6" class="hole"/>
+<rect x="457" y="107" width="6" height="6" class="hole"/>
+<rect x="477" y="107" width="6" height="6" class="hole"/>
+<rect x="497" y="107" width="6" height="6" class="hole"/>
+<rect x="517" y="107" width="6" height="6" class="hole"/>
+<rect x="537" y="107" width="6" height="6" class="hole"/>
+<rect x="557" y="107" width="6" height="6" class="hole"/>
+<rect x="577" y="107" width="6" height="6" class="hole"/>
+<rect x="597" y="107" width="6" height="6" class="hole"/>
+<rect x="617" y="107" width="6" height="6" class="hole"/>
+<rect x="637" y="107" width="6" height="6" class="hole"/>
+<line x1="40" y1="400" x2="660" y2="400" stroke="#d33" stroke-width="2"/>
+<text x="668" y="414" class="rl">RED bus (+12 V)</text>
+<rect x="57" y="407" width="6" height="6" class="hole"/>
+<rect x="77" y="407" width="6" height="6" class="hole"/>
+<rect x="97" y="407" width="6" height="6" class="hole"/>
+<rect x="117" y="407" width="6" height="6" class="hole"/>
+<rect x="137" y="407" width="6" height="6" class="hole"/>
+<rect x="157" y="407" width="6" height="6" class="hole"/>
+<rect x="177" y="407" width="6" height="6" class="hole"/>
+<rect x="197" y="407" width="6" height="6" class="hole"/>
+<rect x="217" y="407" width="6" height="6" class="hole"/>
+<rect x="237" y="407" width="6" height="6" class="hole"/>
+<rect x="257" y="407" width="6" height="6" class="hole"/>
+<rect x="277" y="407" width="6" height="6" class="hole"/>
+<rect x="297" y="407" width="6" height="6" class="hole"/>
+<rect x="317" y="407" width="6" height="6" class="hole"/>
+<rect x="337" y="407" width="6" height="6" class="hole"/>
+<rect x="357" y="407" width="6" height="6" class="hole"/>
+<rect x="377" y="407" width="6" height="6" class="hole"/>
+<rect x="397" y="407" width="6" height="6" class="hole"/>
+<rect x="417" y="407" width="6" height="6" class="hole"/>
+<rect x="437" y="407" width="6" height="6" class="hole"/>
+<rect x="457" y="407" width="6" height="6" class="hole"/>
+<rect x="477" y="407" width="6" height="6" class="hole"/>
+<rect x="497" y="407" width="6" height="6" class="hole"/>
+<rect x="517" y="407" width="6" height="6" class="hole"/>
+<rect x="537" y="407" width="6" height="6" class="hole"/>
+<rect x="557" y="407" width="6" height="6" class="hole"/>
+<rect x="577" y="407" width="6" height="6" class="hole"/>
+<rect x="597" y="407" width="6" height="6" class="hole"/>
+<rect x="617" y="407" width="6" height="6" class="hole"/>
+<rect x="637" y="407" width="6" height="6" class="hole"/>
+<line x1="40" y1="440" x2="660" y2="440" stroke="#36c" stroke-width="2"/>
+<text x="668" y="434" class="rl">WHITE = GND (−)</text>
+<rect x="57" y="427" width="6" height="6" class="hole"/>
+<rect x="77" y="427" width="6" height="6" class="hole"/>
+<rect x="97" y="427" width="6" height="6" class="hole"/>
+<rect x="117" y="427" width="6" height="6" class="hole"/>
+<rect x="137" y="427" width="6" height="6" class="hole"/>
+<rect x="157" y="427" width="6" height="6" class="hole"/>
+<rect x="177" y="427" width="6" height="6" class="hole"/>
+<rect x="197" y="427" width="6" height="6" class="hole"/>
+<rect x="217" y="427" width="6" height="6" class="hole"/>
+<rect x="237" y="427" width="6" height="6" class="hole"/>
+<rect x="257" y="427" width="6" height="6" class="hole"/>
+<rect x="277" y="427" width="6" height="6" class="hole"/>
+<rect x="297" y="427" width="6" height="6" class="hole"/>
+<rect x="317" y="427" width="6" height="6" class="hole"/>
+<rect x="337" y="427" width="6" height="6" class="hole"/>
+<rect x="357" y="427" width="6" height="6" class="hole"/>
+<rect x="377" y="427" width="6" height="6" class="hole"/>
+<rect x="397" y="427" width="6" height="6" class="hole"/>
+<rect x="417" y="427" width="6" height="6" class="hole"/>
+<rect x="437" y="427" width="6" height="6" class="hole"/>
+<rect x="457" y="427" width="6" height="6" class="hole"/>
+<rect x="477" y="427" width="6" height="6" class="hole"/>
+<rect x="497" y="427" width="6" height="6" class="hole"/>
+<rect x="517" y="427" width="6" height="6" class="hole"/>
+<rect x="537" y="427" width="6" height="6" class="hole"/>
+<rect x="557" y="427" width="6" height="6" class="hole"/>
+<rect x="577" y="427" width="6" height="6" class="hole"/>
+<rect x="597" y="427" width="6" height="6" class="hole"/>
+<rect x="617" y="427" width="6" height="6" class="hole"/>
+<rect x="637" y="427" width="6" height="6" class="hole"/>
+<text x="38" y="154" class="lab" text-anchor="middle">a</text>
+<rect x="57" y="147" width="6" height="6" class="hole"/>
+<rect x="77" y="147" width="6" height="6" class="hole"/>
+<rect x="97" y="147" width="6" height="6" class="hole"/>
+<rect x="117" y="147" width="6" height="6" class="hole"/>
+<rect x="137" y="147" width="6" height="6" class="hole"/>
+<rect x="157" y="147" width="6" height="6" class="hole"/>
+<rect x="177" y="147" width="6" height="6" class="hole"/>
+<rect x="197" y="147" width="6" height="6" class="hole"/>
+<rect x="217" y="147" width="6" height="6" class="hole"/>
+<rect x="237" y="147" width="6" height="6" class="hole"/>
+<rect x="257" y="147" width="6" height="6" class="hole"/>
+<rect x="277" y="147" width="6" height="6" class="hole"/>
+<rect x="297" y="147" width="6" height="6" class="hole"/>
+<rect x="317" y="147" width="6" height="6" class="hole"/>
+<rect x="337" y="147" width="6" height="6" class="hole"/>
+<rect x="357" y="147" width="6" height="6" class="hole"/>
+<rect x="377" y="147" width="6" height="6" class="hole"/>
+<rect x="397" y="147" width="6" height="6" class="hole"/>
+<rect x="417" y="147" width="6" height="6" class="hole"/>
+<rect x="437" y="147" width="6" height="6" class="hole"/>
+<rect x="457" y="147" width="6" height="6" class="hole"/>
+<rect x="477" y="147" width="6" height="6" class="hole"/>
+<rect x="497" y="147" width="6" height="6" class="hole"/>
+<rect x="517" y="147" width="6" height="6" class="hole"/>
+<rect x="537" y="147" width="6" height="6" class="hole"/>
+<rect x="557" y="147" width="6" height="6" class="hole"/>
+<rect x="577" y="147" width="6" height="6" class="hole"/>
+<rect x="597" y="147" width="6" height="6" class="hole"/>
+<rect x="617" y="147" width="6" height="6" class="hole"/>
+<rect x="637" y="147" width="6" height="6" class="hole"/>
+<text x="38" y="174" class="lab" text-anchor="middle">b</text>
+<rect x="57" y="167" width="6" height="6" class="hole"/>
+<rect x="77" y="167" width="6" height="6" class="hole"/>
+<rect x="97" y="167" width="6" height="6" class="hole"/>
+<rect x="117" y="167" width="6" height="6" class="hole"/>
+<rect x="137" y="167" width="6" height="6" class="hole"/>
+<rect x="157" y="167" width="6" height="6" class="hole"/>
+<rect x="177" y="167" width="6" height="6" class="hole"/>
+<rect x="197" y="167" width="6" height="6" class="hole"/>
+<rect x="217" y="167" width="6" height="6" class="hole"/>
+<rect x="237" y="167" width="6" height="6" class="hole"/>
+<rect x="257" y="167" width="6" height="6" class="hole"/>
+<rect x="277" y="167" width="6" height="6" class="hole"/>
+<rect x="297" y="167" width="6" height="6" class="hole"/>
+<rect x="317" y="167" width="6" height="6" class="hole"/>
+<rect x="337" y="167" width="6" height="6" class="hole"/>
+<rect x="357" y="167" width="6" height="6" class="hole"/>
+<rect x="377" y="167" width="6" height="6" class="hole"/>
+<rect x="397" y="167" width="6" height="6" class="hole"/>
+<rect x="417" y="167" width="6" height="6" class="hole"/>
+<rect x="437" y="167" width="6" height="6" class="hole"/>
+<rect x="457" y="167" width="6" height="6" class="hole"/>
+<rect x="477" y="167" width="6" height="6" class="hole"/>
+<rect x="497" y="167" width="6" height="6" class="hole"/>
+<rect x="517" y="167" width="6" height="6" class="hole"/>
+<rect x="537" y="167" width="6" height="6" class="hole"/>
+<rect x="557" y="167" width="6" height="6" class="hole"/>
+<rect x="577" y="167" width="6" height="6" class="hole"/>
+<rect x="597" y="167" width="6" height="6" class="hole"/>
+<rect x="617" y="167" width="6" height="6" class="hole"/>
+<rect x="637" y="167" width="6" height="6" class="hole"/>
+<text x="38" y="194" class="lab" text-anchor="middle">c</text>
+<rect x="57" y="187" width="6" height="6" class="hole"/>
+<rect x="77" y="187" width="6" height="6" class="hole"/>
+<rect x="97" y="187" width="6" height="6" class="hole"/>
+<rect x="117" y="187" width="6" height="6" class="hole"/>
+<rect x="137" y="187" width="6" height="6" class="hole"/>
+<rect x="157" y="187" width="6" height="6" class="hole"/>
+<rect x="177" y="187" width="6" height="6" class="hole"/>
+<rect x="197" y="187" width="6" height="6" class="hole"/>
+<rect x="217" y="187" width="6" height="6" class="hole"/>
+<rect x="237" y="187" width="6" height="6" class="hole"/>
+<rect x="257" y="187" width="6" height="6" class="hole"/>
+<rect x="277" y="187" width="6" height="6" class="hole"/>
+<rect x="297" y="187" width="6" height="6" class="hole"/>
+<rect x="317" y="187" width="6" height="6" class="hole"/>
+<rect x="337" y="187" width="6" height="6" class="hole"/>
+<rect x="357" y="187" width="6" height="6" class="hole"/>
+<rect x="377" y="187" width="6" height="6" class="hole"/>
+<rect x="397" y="187" width="6" height="6" class="hole"/>
+<rect x="417" y="187" width="6" height="6" class="hole"/>
+<rect x="437" y="187" width="6" height="6" class="hole"/>
+<rect x="457" y="187" width="6" height="6" class="hole"/>
+<rect x="477" y="187" width="6" height="6" class="hole"/>
+<rect x="497" y="187" width="6" height="6" class="hole"/>
+<rect x="517" y="187" width="6" height="6" class="hole"/>
+<rect x="537" y="187" width="6" height="6" class="hole"/>
+<rect x="557" y="187" width="6" height="6" class="hole"/>
+<rect x="577" y="187" width="6" height="6" class="hole"/>
+<rect x="597" y="187" width="6" height="6" class="hole"/>
+<rect x="617" y="187" width="6" height="6" class="hole"/>
+<rect x="637" y="187" width="6" height="6" class="hole"/>
+<text x="38" y="214" class="lab" text-anchor="middle">d</text>
+<rect x="57" y="207" width="6" height="6" class="hole"/>
+<rect x="77" y="207" width="6" height="6" class="hole"/>
+<rect x="97" y="207" width="6" height="6" class="hole"/>
+<rect x="117" y="207" width="6" height="6" class="hole"/>
+<rect x="137" y="207" width="6" height="6" class="hole"/>
+<rect x="157" y="207" width="6" height="6" class="hole"/>
+<rect x="177" y="207" width="6" height="6" class="hole"/>
+<rect x="197" y="207" width="6" height="6" class="hole"/>
+<rect x="217" y="207" width="6" height="6" class="hole"/>
+<rect x="237" y="207" width="6" height="6" class="hole"/>
+<rect x="257" y="207" width="6" height="6" class="hole"/>
+<rect x="277" y="207" width="6" height="6" class="hole"/>
+<rect x="297" y="207" width="6" height="6" class="hole"/>
+<rect x="317" y="207" width="6" height="6" class="hole"/>
+<rect x="337" y="207" width="6" height="6" class="hole"/>
+<rect x="357" y="207" width="6" height="6" class="hole"/>
+<rect x="377" y="207" width="6" height="6" class="hole"/>
+<rect x="397" y="207" width="6" height="6" class="hole"/>
+<rect x="417" y="207" width="6" height="6" class="hole"/>
+<rect x="437" y="207" width="6" height="6" class="hole"/>
+<rect x="457" y="207" width="6" height="6" class="hole"/>
+<rect x="477" y="207" width="6" height="6" class="hole"/>
+<rect x="497" y="207" width="6" height="6" class="hole"/>
+<rect x="517" y="207" width="6" height="6" class="hole"/>
+<rect x="537" y="207" width="6" height="6" class="hole"/>
+<rect x="557" y="207" width="6" height="6" class="hole"/>
+<rect x="577" y="207" width="6" height="6" class="hole"/>
+<rect x="597" y="207" width="6" height="6" class="hole"/>
+<rect x="617" y="207" width="6" height="6" class="hole"/>
+<rect x="637" y="207" width="6" height="6" class="hole"/>
+<text x="38" y="234" class="lab" text-anchor="middle">e</text>
+<rect x="57" y="227" width="6" height="6" class="hole"/>
+<rect x="77" y="227" width="6" height="6" class="hole"/>
+<rect x="97" y="227" width="6" height="6" class="hole"/>
+<rect x="117" y="227" width="6" height="6" class="hole"/>
+<rect x="137" y="227" width="6" height="6" class="hole"/>
+<rect x="157" y="227" width="6" height="6" class="hole"/>
+<rect x="177" y="227" width="6" height="6" class="hole"/>
+<rect x="197" y="227" width="6" height="6" class="hole"/>
+<rect x="217" y="227" width="6" height="6" class="hole"/>
+<rect x="237" y="227" width="6" height="6" class="hole"/>
+<rect x="257" y="227" width="6" height="6" class="hole"/>
+<rect x="277" y="227" width="6" height="6" class="hole"/>
+<rect x="297" y="227" width="6" height="6" class="hole"/>
+<rect x="317" y="227" width="6" height="6" class="hole"/>
+<rect x="337" y="227" width="6" height="6" class="hole"/>
+<rect x="357" y="227" width="6" height="6" class="hole"/>
+<rect x="377" y="227" width="6" height="6" class="hole"/>
+<rect x="397" y="227" width="6" height="6" class="hole"/>
+<rect x="417" y="227" width="6" height="6" class="hole"/>
+<rect x="437" y="227" width="6" height="6" class="hole"/>
+<rect x="457" y="227" width="6" height="6" class="hole"/>
+<rect x="477" y="227" width="6" height="6" class="hole"/>
+<rect x="497" y="227" width="6" height="6" class="hole"/>
+<rect x="517" y="227" width="6" height="6" class="hole"/>
+<rect x="537" y="227" width="6" height="6" class="hole"/>
+<rect x="557" y="227" width="6" height="6" class="hole"/>
+<rect x="577" y="227" width="6" height="6" class="hole"/>
+<rect x="597" y="227" width="6" height="6" class="hole"/>
+<rect x="617" y="227" width="6" height="6" class="hole"/>
+<rect x="637" y="227" width="6" height="6" class="hole"/>
+<text x="38" y="294" class="lab" text-anchor="middle">f</text>
+<rect x="57" y="287" width="6" height="6" class="hole"/>
+<rect x="77" y="287" width="6" height="6" class="hole"/>
+<rect x="97" y="287" width="6" height="6" class="hole"/>
+<rect x="117" y="287" width="6" height="6" class="hole"/>
+<rect x="137" y="287" width="6" height="6" class="hole"/>
+<rect x="157" y="287" width="6" height="6" class="hole"/>
+<rect x="177" y="287" width="6" height="6" class="hole"/>
+<rect x="197" y="287" width="6" height="6" class="hole"/>
+<rect x="217" y="287" width="6" height="6" class="hole"/>
+<rect x="237" y="287" width="6" height="6" class="hole"/>
+<rect x="257" y="287" width="6" height="6" class="hole"/>
+<rect x="277" y="287" width="6" height="6" class="hole"/>
+<rect x="297" y="287" width="6" height="6" class="hole"/>
+<rect x="317" y="287" width="6" height="6" class="hole"/>
+<rect x="337" y="287" width="6" height="6" class="hole"/>
+<rect x="357" y="287" width="6" height="6" class="hole"/>
+<rect x="377" y="287" width="6" height="6" class="hole"/>
+<rect x="397" y="287" width="6" height="6" class="hole"/>
+<rect x="417" y="287" width="6" height="6" class="hole"/>
+<rect x="437" y="287" width="6" height="6" class="hole"/>
+<rect x="457" y="287" width="6" height="6" class="hole"/>
+<rect x="477" y="287" width="6" height="6" class="hole"/>
+<rect x="497" y="287" width="6" height="6" class="hole"/>
+<rect x="517" y="287" width="6" height="6" class="hole"/>
+<rect x="537" y="287" width="6" height="6" class="hole"/>
+<rect x="557" y="287" width="6" height="6" class="hole"/>
+<rect x="577" y="287" width="6" height="6" class="hole"/>
+<rect x="597" y="287" width="6" height="6" class="hole"/>
+<rect x="617" y="287" width="6" height="6" class="hole"/>
+<rect x="637" y="287" width="6" height="6" class="hole"/>
+<text x="38" y="314" class="lab" text-anchor="middle">g</text>
+<rect x="57" y="307" width="6" height="6" class="hole"/>
+<rect x="77" y="307" width="6" height="6" class="hole"/>
+<rect x="97" y="307" width="6" height="6" class="hole"/>
+<rect x="117" y="307" width="6" height="6" class="hole"/>
+<rect x="137" y="307" width="6" height="6" class="hole"/>
+<rect x="157" y="307" width="6" height="6" class="hole"/>
+<rect x="177" y="307" width="6" height="6" class="hole"/>
+<rect x="197" y="307" width="6" height="6" class="hole"/>
+<rect x="217" y="307" width="6" height="6" class="hole"/>
+<rect x="237" y="307" width="6" height="6" class="hole"/>
+<rect x="257" y="307" width="6" height="6" class="hole"/>
+<rect x="277" y="307" width="6" height="6" class="hole"/>
+<rect x="297" y="307" width="6" height="6" class="hole"/>
+<rect x="317" y="307" width="6" height="6" class="hole"/>
+<rect x="337" y="307" width="6" height="6" class="hole"/>
+<rect x="357" y="307" width="6" height="6" class="hole"/>
+<rect x="377" y="307" width="6" height="6" class="hole"/>
+<rect x="397" y="307" width="6" height="6" class="hole"/>
+<rect x="417" y="307" width="6" height="6" class="hole"/>
+<rect x="437" y="307" width="6" height="6" class="hole"/>
+<rect x="457" y="307" width="6" height="6" class="hole"/>
+<rect x="477" y="307" width="6" height="6" class="hole"/>
+<rect x="497" y="307" width="6" height="6" class="hole"/>
+<rect x="517" y="307" width="6" height="6" class="hole"/>
+<rect x="537" y="307" width="6" height="6" class="hole"/>
+<rect x="557" y="307" width="6" height="6" class="hole"/>
+<rect x="577" y="307" width="6" height="6" class="hole"/>
+<rect x="597" y="307" width="6" height="6" class="hole"/>
+<rect x="617" y="307" width="6" height="6" class="hole"/>
+<rect x="637" y="307" width="6" height="6" class="hole"/>
+<text x="38" y="334" class="lab" text-anchor="middle">h</text>
+<rect x="57" y="327" width="6" height="6" class="hole"/>
+<rect x="77" y="327" width="6" height="6" class="hole"/>
+<rect x="97" y="327" width="6" height="6" class="hole"/>
+<rect x="117" y="327" width="6" height="6" class="hole"/>
+<rect x="137" y="327" width="6" height="6" class="hole"/>
+<rect x="157" y="327" width="6" height="6" class="hole"/>
+<rect x="177" y="327" width="6" height="6" class="hole"/>
+<rect x="197" y="327" width="6" height="6" class="hole"/>
+<rect x="217" y="327" width="6" height="6" class="hole"/>
+<rect x="237" y="327" width="6" height="6" class="hole"/>
+<rect x="257" y="327" width="6" height="6" class="hole"/>
+<rect x="277" y="327" width="6" height="6" class="hole"/>
+<rect x="297" y="327" width="6" height="6" class="hole"/>
+<rect x="317" y="327" width="6" height="6" class="hole"/>
+<rect x="337" y="327" width="6" height="6" class="hole"/>
+<rect x="357" y="327" width="6" height="6" class="hole"/>
+<rect x="377" y="327" width="6" height="6" class="hole"/>
+<rect x="397" y="327" width="6" height="6" class="hole"/>
+<rect x="417" y="327" width="6" height="6" class="hole"/>
+<rect x="437" y="327" width="6" height="6" class="hole"/>
+<rect x="457" y="327" width="6" height="6" class="hole"/>
+<rect x="477" y="327" width="6" height="6" class="hole"/>
+<rect x="497" y="327" width="6" height="6" class="hole"/>
+<rect x="517" y="327" width="6" height="6" class="hole"/>
+<rect x="537" y="327" width="6" height="6" class="hole"/>
+<rect x="557" y="327" width="6" height="6" class="hole"/>
+<rect x="577" y="327" width="6" height="6" class="hole"/>
+<rect x="597" y="327" width="6" height="6" class="hole"/>
+<rect x="617" y="327" width="6" height="6" class="hole"/>
+<rect x="637" y="327" width="6" height="6" class="hole"/>
+<text x="38" y="354" class="lab" text-anchor="middle">i</text>
+<rect x="57" y="347" width="6" height="6" class="hole"/>
+<rect x="77" y="347" width="6" height="6" class="hole"/>
+<rect x="97" y="347" width="6" height="6" class="hole"/>
+<rect x="117" y="347" width="6" height="6" class="hole"/>
+<rect x="137" y="347" width="6" height="6" class="hole"/>
+<rect x="157" y="347" width="6" height="6" class="hole"/>
+<rect x="177" y="347" width="6" height="6" class="hole"/>
+<rect x="197" y="347" width="6" height="6" class="hole"/>
+<rect x="217" y="347" width="6" height="6" class="hole"/>
+<rect x="237" y="347" width="6" height="6" class="hole"/>
+<rect x="257" y="347" width="6" height="6" class="hole"/>
+<rect x="277" y="347" width="6" height="6" class="hole"/>
+<rect x="297" y="347" width="6" height="6" class="hole"/>
+<rect x="317" y="347" width="6" height="6" class="hole"/>
+<rect x="337" y="347" width="6" height="6" class="hole"/>
+<rect x="357" y="347" width="6" height="6" class="hole"/>
+<rect x="377" y="347" width="6" height="6" class="hole"/>
+<rect x="397" y="347" width="6" height="6" class="hole"/>
+<rect x="417" y="347" width="6" height="6" class="hole"/>
+<rect x="437" y="347" width="6" height="6" class="hole"/>
+<rect x="457" y="347" width="6" height="6" class="hole"/>
+<rect x="477" y="347" width="6" height="6" class="hole"/>
+<rect x="497" y="347" width="6" height="6" class="hole"/>
+<rect x="517" y="347" width="6" height="6" class="hole"/>
+<rect x="537" y="347" width="6" height="6" class="hole"/>
+<rect x="557" y="347" width="6" height="6" class="hole"/>
+<rect x="577" y="347" width="6" height="6" class="hole"/>
+<rect x="597" y="347" width="6" height="6" class="hole"/>
+<rect x="617" y="347" width="6" height="6" class="hole"/>
+<rect x="637" y="347" width="6" height="6" class="hole"/>
+<text x="38" y="374" class="lab" text-anchor="middle">j</text>
+<rect x="57" y="367" width="6" height="6" class="hole"/>
+<rect x="77" y="367" width="6" height="6" class="hole"/>
+<rect x="97" y="367" width="6" height="6" class="hole"/>
+<rect x="117" y="367" width="6" height="6" class="hole"/>
+<rect x="137" y="367" width="6" height="6" class="hole"/>
+<rect x="157" y="367" width="6" height="6" class="hole"/>
+<rect x="177" y="367" width="6" height="6" class="hole"/>
+<rect x="197" y="367" width="6" height="6" class="hole"/>
+<rect x="217" y="367" width="6" height="6" class="hole"/>
+<rect x="237" y="367" width="6" height="6" class="hole"/>
+<rect x="257" y="367" width="6" height="6" class="hole"/>
+<rect x="277" y="367" width="6" height="6" class="hole"/>
+<rect x="297" y="367" width="6" height="6" class="hole"/>
+<rect x="317" y="367" width="6" height="6" class="hole"/>
+<rect x="337" y="367" width="6" height="6" class="hole"/>
+<rect x="357" y="367" width="6" height="6" class="hole"/>
+<rect x="377" y="367" width="6" height="6" class="hole"/>
+<rect x="397" y="367" width="6" height="6" class="hole"/>
+<rect x="417" y="367" width="6" height="6" class="hole"/>
+<rect x="437" y="367" width="6" height="6" class="hole"/>
+<rect x="457" y="367" width="6" height="6" class="hole"/>
+<rect x="477" y="367" width="6" height="6" class="hole"/>
+<rect x="497" y="367" width="6" height="6" class="hole"/>
+<rect x="517" y="367" width="6" height="6" class="hole"/>
+<rect x="537" y="367" width="6" height="6" class="hole"/>
+<rect x="557" y="367" width="6" height="6" class="hole"/>
+<rect x="577" y="367" width="6" height="6" class="hole"/>
+<rect x="597" y="367" width="6" height="6" class="hole"/>
+<rect x="617" y="367" width="6" height="6" class="hole"/>
+<rect x="637" y="367" width="6" height="6" class="hole"/>
+<text x="60" y="388" class="lab" text-anchor="middle">1</text>
+<text x="140" y="388" class="lab" text-anchor="middle">5</text>
+<text x="240" y="388" class="lab" text-anchor="middle">10</text>
+<text x="340" y="388" class="lab" text-anchor="middle">15</text>
+<text x="440" y="388" class="lab" text-anchor="middle">20</text>
+<text x="540" y="388" class="lab" text-anchor="middle">25</text>
+<text x="640" y="388" class="lab" text-anchor="middle">30</text>
+<text x="180" y="264.0" class="cap" text-anchor="end">TX stage</text>
+<text x="300" y="264.0" class="cap" text-anchor="end">RX stage</text>
+<text x="480" y="264.0" class="cap" text-anchor="end">OBSTRUCTION stage</text>
+<polyline points="60,38 60,90" fill="none" stroke="#d33" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="60" cy="38" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="60" cy="90" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<text x="60" y="30" class="tl" text-anchor="middle" fill="#d33">ESP 3V3</text>
+<polyline points="80,38 80,110" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="80" cy="38" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="80" cy="110" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<text x="90" y="30" class="tl" fill="#111">GND</text>
+<polyline points="640,110 640,110 654,110 654,430 640,430" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="640" cy="110" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="640" cy="430" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<path d="M111,197 L111,188 A29.0,14 0 0 1 169,188 L169,197 Z" fill="#222" stroke="#000"/>
+<circle cx="120" cy="190" r="3" fill="#bbb"/>
+<text x="120" y="210" class="pin" text-anchor="middle">C</text>
+<circle cx="140" cy="190" r="3" fill="#bbb"/>
+<text x="140" y="210" class="pin" text-anchor="middle">B</text>
+<circle cx="160" cy="190" r="3" fill="#bbb"/>
+<text x="160" y="210" class="pin" text-anchor="middle">E</text>
+<text x="140" y="184" class="qn" text-anchor="middle">Q1</text>
+<polyline points="160,150 160,110" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="160" cy="150" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="160" cy="110" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<line x1="140" y1="150" x2="140" y2="110" stroke="#999" stroke-width="2"/>
+<g transform="translate(140.0,130.0) rotate(-90.0)">
+<rect x="-13.0" y="-5" width="26" height="10" rx="4" fill="#e8d3a8" stroke="#8a7650"/>
+<rect x="-9.0" y="-5" width="3" height="10" fill="#8B4513"/>
+<rect x="-4.0" y="-5" width="3" height="10" fill="#111"/>
+<rect x="1.0" y="-5" width="3" height="10" fill="#f80"/>
+<rect x="7.0" y="-5" width="2" height="10" fill="#c9a227"/>
+</g>
+<circle cx="140" cy="150" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<circle cx="140" cy="110" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<text x="131" y="134.0" class="rv" text-anchor="end">10k</text>
+<line x1="140" y1="230" x2="200" y2="230" stroke="#999" stroke-width="2"/>
+<g transform="translate(170.0,230.0) rotate(0.0)">
+<rect x="-13.0" y="-5" width="26" height="10" rx="4" fill="#e8d3a8" stroke="#8a7650"/>
+<rect x="-9.0" y="-5" width="3" height="10" fill="#8B4513"/>
+<rect x="-4.0" y="-5" width="3" height="10" fill="#111"/>
+<rect x="1.0" y="-5" width="3" height="10" fill="#d00"/>
+<rect x="7.0" y="-5" width="2" height="10" fill="#c9a227"/>
+</g>
+<circle cx="140" cy="230" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<circle cx="200" cy="230" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<text x="170" y="248" class="rv" text-anchor="start">1k</text>
+<polyline points="200,150 200,38" fill="none" stroke="#e67e22" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="200" cy="150" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="200" cy="38" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<text x="200" y="30" class="tl" text-anchor="middle" fill="#e67e22">uart_tx_pin</text>
+<polyline points="120,230 110,260 110,390 120,410" fill="none" stroke="#d22" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="120" cy="230" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="120" cy="410" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<path d="M291,197 L291,188 A29.0,14 0 0 1 349,188 L349,197 Z" fill="#222" stroke="#000"/>
+<circle cx="300" cy="190" r="3" fill="#bbb"/>
+<text x="300" y="210" class="pin" text-anchor="middle">C</text>
+<circle cx="320" cy="190" r="3" fill="#bbb"/>
+<text x="320" y="210" class="pin" text-anchor="middle">B</text>
+<circle cx="340" cy="190" r="3" fill="#bbb"/>
+<text x="340" y="210" class="pin" text-anchor="middle">E</text>
+<text x="320" y="184" class="qn" text-anchor="middle">Q2</text>
+<polyline points="340,150 340,110" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="340" cy="150" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="340" cy="110" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<line x1="320" y1="150" x2="320" y2="110" stroke="#999" stroke-width="2"/>
+<g transform="translate(320.0,130.0) rotate(-90.0)">
+<rect x="-13.0" y="-5" width="26" height="10" rx="4" fill="#e8d3a8" stroke="#8a7650"/>
+<rect x="-9.0" y="-5" width="3" height="10" fill="#8B4513"/>
+<rect x="-4.0" y="-5" width="3" height="10" fill="#111"/>
+<rect x="1.0" y="-5" width="3" height="10" fill="#f80"/>
+<rect x="7.0" y="-5" width="2" height="10" fill="#c9a227"/>
+</g>
+<circle cx="320" cy="150" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<circle cx="320" cy="110" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<text x="329" y="134.0" class="rv" text-anchor="start">10k</text>
+<line x1="300" y1="170" x2="240" y2="90" stroke="#999" stroke-width="2"/>
+<g transform="translate(270.0,130.0) rotate(-126.86989764584402)">
+<rect x="-13.0" y="-5" width="26" height="10" rx="4" fill="#e8d3a8" stroke="#8a7650"/>
+<rect x="-9.0" y="-5" width="3" height="10" fill="#8B4513"/>
+<rect x="-4.0" y="-5" width="3" height="10" fill="#111"/>
+<rect x="1.0" y="-5" width="3" height="10" fill="#f80"/>
+<rect x="7.0" y="-5" width="2" height="10" fill="#c9a227"/>
+</g>
+<circle cx="300" cy="170" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<circle cx="240" cy="90" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<text x="236" y="128" class="rv" text-anchor="end">10k</text>
+<polyline points="300,150 300,38" fill="none" stroke="#e67e22" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="300" cy="150" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="300" cy="38" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<text x="300" y="30" class="tl" text-anchor="middle" fill="#e67e22">uart_rx_pin</text>
+<line x1="320" y1="230" x2="320" y2="290" stroke="#999" stroke-width="2"/>
+<g transform="translate(320.0,260.0) rotate(90.0)">
+<rect x="-13.0" y="-5" width="26" height="10" rx="4" fill="#e8d3a8" stroke="#8a7650"/>
+<rect x="-9.0" y="-5" width="3" height="10" fill="#ee0"/>
+<rect x="-4.0" y="-5" width="3" height="10" fill="#7b2fbe"/>
+<rect x="1.0" y="-5" width="3" height="10" fill="#f80"/>
+<rect x="7.0" y="-5" width="2" height="10" fill="#c9a227"/>
+</g>
+<circle cx="320" cy="230" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<circle cx="320" cy="290" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<text x="330.0" y="264.0" class="rv" text-anchor="start">47k</text>
+<polyline points="320,370 320,410" fill="none" stroke="#d22" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="320" cy="370" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="320" cy="410" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<path d="M471,197 L471,188 A29.0,14 0 0 1 529,188 L529,197 Z" fill="#222" stroke="#000"/>
+<circle cx="480" cy="190" r="3" fill="#bbb"/>
+<text x="480" y="210" class="pin" text-anchor="middle">C</text>
+<circle cx="500" cy="190" r="3" fill="#bbb"/>
+<text x="500" y="210" class="pin" text-anchor="middle">B</text>
+<circle cx="520" cy="190" r="3" fill="#bbb"/>
+<text x="520" y="210" class="pin" text-anchor="middle">E</text>
+<text x="500" y="184" class="qn" text-anchor="middle">Q3</text>
+<polyline points="520,150 520,110" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="520" cy="150" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="520" cy="110" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<line x1="500" y1="150" x2="500" y2="110" stroke="#999" stroke-width="2"/>
+<g transform="translate(500.0,130.0) rotate(-90.0)">
+<rect x="-13.0" y="-5" width="26" height="10" rx="4" fill="#e8d3a8" stroke="#8a7650"/>
+<rect x="-9.0" y="-5" width="3" height="10" fill="#8B4513"/>
+<rect x="-4.0" y="-5" width="3" height="10" fill="#111"/>
+<rect x="1.0" y="-5" width="3" height="10" fill="#f80"/>
+<rect x="7.0" y="-5" width="2" height="10" fill="#c9a227"/>
+</g>
+<circle cx="500" cy="150" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<circle cx="500" cy="110" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<text x="509" y="134.0" class="rv" text-anchor="start">10k</text>
+<line x1="480" y1="170" x2="420" y2="90" stroke="#999" stroke-width="2"/>
+<g transform="translate(450.0,130.0) rotate(-126.86989764584402)">
+<rect x="-13.0" y="-5" width="26" height="10" rx="4" fill="#e8d3a8" stroke="#8a7650"/>
+<rect x="-9.0" y="-5" width="3" height="10" fill="#8B4513"/>
+<rect x="-4.0" y="-5" width="3" height="10" fill="#111"/>
+<rect x="1.0" y="-5" width="3" height="10" fill="#f80"/>
+<rect x="7.0" y="-5" width="2" height="10" fill="#c9a227"/>
+</g>
+<circle cx="480" cy="170" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<circle cx="420" cy="90" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<text x="416" y="128" class="rv" text-anchor="end">10k</text>
+<polyline points="480,150 480,38" fill="none" stroke="#e67e22" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="480" cy="150" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="480" cy="38" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<text x="480" y="30" class="tl" text-anchor="middle" fill="#e67e22">input_obst_pin</text>
+<line x1="500" y1="230" x2="500" y2="290" stroke="#999" stroke-width="2"/>
+<g transform="translate(500.0,260.0) rotate(90.0)">
+<rect x="-13.0" y="-5" width="26" height="10" rx="4" fill="#e8d3a8" stroke="#8a7650"/>
+<rect x="-9.0" y="-5" width="3" height="10" fill="#d00"/>
+<rect x="-4.0" y="-5" width="3" height="10" fill="#d00"/>
+<rect x="1.0" y="-5" width="3" height="10" fill="#f80"/>
+<rect x="7.0" y="-5" width="2" height="10" fill="#c9a227"/>
+</g>
+<circle cx="500" cy="230" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<circle cx="500" cy="290" r="4" fill="#777" stroke="#fff" stroke-width="1"/>
+<text x="510.0" y="264.0" class="rv" text-anchor="start">22k</text>
+<polyline points="60,500 60,410" fill="none" stroke="#d22" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="60" cy="500" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="60" cy="410" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<polyline points="80,500 80,430" fill="none" stroke="#ccc" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="80" cy="500" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="80" cy="430" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<line x1="80" y1="500" x2="80" y2="430" stroke="#888" stroke-width="1" stroke-dasharray="3 3"/>
+<polyline points="500,500 500,400 500,370" fill="none" stroke="#222" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+<circle cx="500" cy="500" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<circle cx="500" cy="370" r="4" fill="#111" stroke="#fff" stroke-width="1"/>
+<text x="60" y="518" class="tl" text-anchor="middle" fill="#d22">RED</text>
+<text x="86" y="534" class="tl" text-anchor="middle">WHITE</text>
+<text x="500" y="518" class="tl" text-anchor="middle">BLACK</text>
+<text x="280" y="518" class="sub" text-anchor="middle">opener terminals</text>
+<text x="790" y="40" class="lh" xml:space="preserve">Wire it like this</text>
+<text x="790" y="57" class="lt" xml:space="preserve">Every column of 5 holes (a–e, f–j) is one node.</text>
+<text x="790" y="74" class="lt" xml:space="preserve">Dots = where a lead or wire goes into a hole.</text>
+<text x="790" y="91" class="lt" xml:space="preserve">Q1, Q2, Q3 are all BC337.</text>
+<text x="790" y="108" class="lt" xml:space="preserve">Wires and resistors cross over holes they don&#x27;t touch.</text>
+<text x="790" y="125" class="lt" xml:space="preserve"></text>
+<text x="790" y="139" class="lh" xml:space="preserve">BC337 pin order</text>
+<text x="790" y="156" class="lt" xml:space="preserve">Flat face toward row j (toward you), legs down:</text>
+<text x="790" y="173" class="lt" xml:space="preserve">C – B – E, left to right. Check your kit&#x27;s sheet:</text>
+<text x="790" y="190" class="lt" xml:space="preserve">if yours differs, swap the columns to match.</text>
+<text x="790" y="207" class="lt" xml:space="preserve"></text>
+<text x="790" y="221" class="lh" xml:space="preserve">ESP32 pins</text>
+<text x="790" y="238" class="lt" xml:space="preserve">                 DevKit V1       XIAO C6</text>
+<text x="790" y="255" class="lm" xml:space="preserve">uart_tx_pin      GPIO22 (D22)    GPIO1 (D1)</text>
+<text x="790" y="272" class="lm" xml:space="preserve">uart_rx_pin      GPIO21 (D21)    GPIO2 (D2)</text>
+<text x="790" y="289" class="lm" xml:space="preserve">input_obst_pin   GPIO23 (D23)    GPIO21 (D3)</text>
+<text x="790" y="306" class="lt" xml:space="preserve"></text>
+<text x="790" y="320" class="lh" xml:space="preserve">Resistor bands</text>
+<text x="790" y="337" class="lt" xml:space="preserve">1k  brown-black-red      10k  brown-black-orange</text>
+<text x="790" y="354" class="lt" xml:space="preserve">22k red-red-orange       47k  yellow-violet-orange</text>
+<text x="790" y="371" class="lt" xml:space="preserve"></text>
+<text x="790" y="385" class="lh" xml:space="preserve">Bench test first (no opener)</text>
+<text x="790" y="402" class="lt" xml:space="preserve">12 V supply (+) → 1k → RED rail</text>
+<text x="790" y="419" class="lt" xml:space="preserve">12 V supply (−) → WHITE rail</text>
+<text x="790" y="436" class="lt" xml:space="preserve">Flash firmware/bench-loopback.yaml; every</text>
+<text x="790" y="453" class="lt" xml:space="preserve">&gt;&gt;&gt; 55:AA:0F:F0 should be followed by &lt;&lt;&lt;.</text>
+<text x="790" y="470" class="lt" xml:space="preserve">Garbled bytes: lower the RX pull-up to 4.7k.</text>
+<text x="790" y="487" class="lt" xml:space="preserve"></text>
+<text x="790" y="495" class="lw" xml:space="preserve">⚠ Untested. Meter BLACK–WHITE before wiring</text>
+<text x="790" y="512" class="lw" xml:space="preserve">the obstruction stage.</text>
+</svg>
