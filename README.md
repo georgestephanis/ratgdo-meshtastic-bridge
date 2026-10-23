@@ -59,6 +59,7 @@ command:  GDO1!<close|open|stop|light_on|light_off|status>
 
 - Everything rides on the channel's **PSK** (encryption key). Anyone with the channel key can read the status and could set their short name to an allowed one, so `allowed_senders` stops mistakes, not attackers. Treat channel membership as "may operate the door".
 - `status` is accepted from any sender (it only reads); every other command needs a short name in `allowed_senders`.
+- **Report-only:** set `allowed_senders: ""`. The bridge still broadcasts every state change and heartbeat, and answers `status`, but refuses every other command (logged as denied). This is the safest way to run it.
 - **`open` is refused by default** (`allow_open: "false"`). Closing remotely is the useful, low-risk direction. Turn opening on only if you understand the risk.
 - Status lines are visible to every member of the channel, including in phone apps. For a quieter setup, give the garage radio a dedicated primary channel and add that channel as a secondary on the house radios only. Relay nodes still forward it: with the default `rebroadcast_mode: ALL`, Meshtastic relays packets it can't decrypt.
 

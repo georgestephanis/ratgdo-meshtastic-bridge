@@ -10,8 +10,9 @@ substitutions:
   # Tag that prefixes every message for this opener. Keep it short (airtime).
   gdo_tag: "GDO1"
   # Meshtastic short names allowed to send commands, comma-separated, no spaces.
-  # ("status" is accepted from anyone.)
-  allowed_senders: "HOMA,HOMB"
+  # ("status" is accepted from anyone.) Empty = report-only: state and
+  # changes are still broadcast, but no mesh command can move the door.
+  allowed_senders: ""
   # Accept "open" over the mesh? close, stop, light_on/off and status are
   # always accepted from allowed senders. Opening a garage remotely is the
   # risky direction, so it is off by default.

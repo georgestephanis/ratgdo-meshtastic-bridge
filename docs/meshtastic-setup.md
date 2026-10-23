@@ -34,6 +34,8 @@ From the firmware's `SerialModule.cpp`:
 
 - Bytes arriving on the serial port are sent as a **text message, broadcast, on channel index 0** (the primary channel). A message ends when the line goes quiet for `serial.timeout` ms, so the bridge writes each status line in one burst with no newline.
 - Every text message the radio receives (any channel, including direct messages) is printed as `\r\n<sender short name>: <text>\r\n`. Only the short name is printed, not the node ID, which is why `allowed_senders` is a list of short names.
+
+  ⚠ That short name comes from **the bridge radio's own node list**, not from the sender. A radio that was just flashed or reset, or a sender renamed recently, can show an old name (e.g. `a1b2` instead of `HOMA`) until the sender re-broadcasts its node info, which happens every few hours. Commands from a listed sender are then refused. The hub's log shows the name as received (`radio: a1b2: GDO1!status`). To refresh it, have the bridge radio request the sender's node info (the Meshtastic Python API: `sendData(<own User>, destinationId=<sender>, portNum=NODEINFO_APP, wantResponse=True)`), or wait.
 - Its own outgoing messages are not echoed back while `echo` is `false`.
 
 ## The house radios
