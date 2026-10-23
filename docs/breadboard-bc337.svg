@@ -637,9 +637,9 @@
 <text x="790" y="207" class="lt" xml:space="preserve"></text>
 <text x="790" y="221" class="lh" xml:space="preserve">ESP32 pins</text>
 <text x="790" y="238" class="lt" xml:space="preserve">                 DevKit V1       XIAO C6</text>
-<text x="790" y="255" class="lm" xml:space="preserve">uart_tx_pin      GPIO22 (D22)    GPIO1 (D1)</text>
-<text x="790" y="272" class="lm" xml:space="preserve">uart_rx_pin      GPIO21 (D21)    GPIO2 (D2)</text>
-<text x="790" y="289" class="lm" xml:space="preserve">input_obst_pin   GPIO23 (D23)    GPIO21 (D3)</text>
+<text x="790" y="255" class="lm" xml:space="preserve">uart_tx_pin      GPIO2 (D2)      GPIO1 (D1)</text>
+<text x="790" y="272" class="lm" xml:space="preserve">uart_rx_pin      GPIO4 (D4)      GPIO2 (D2)</text>
+<text x="790" y="289" class="lm" xml:space="preserve">input_obst_pin   GPIO15 (D15)    GPIO21 (D3)</text>
 <text x="790" y="306" class="lt" xml:space="preserve"></text>
 <text x="790" y="320" class="lh" xml:space="preserve">Resistor bands</text>
 <text x="790" y="337" class="lt" xml:space="preserve">1k  brown-black-red      10k  brown-black-orange</text>

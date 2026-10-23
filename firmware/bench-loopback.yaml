@@ -2,7 +2,7 @@
 # Sends 55 AA 0F F0 every 2 s through the TX stage onto a fake 12 V "red"
 # line and reads it back through the RX stage at 9600 baud, inverted, the same
 # way esphome-ratgdo drives the bus. Pins are for the XIAO ESP32-C6; for a
-# DevKit V1 use board esp32doit-devkit-v1, TX GPIO22, RX GPIO21, OBST GPIO23.
+# DevKit V1 use board esp32doit-devkit-v1, TX GPIO2, RX GPIO4, OBST GPIO15.
 
 esphome:
   name: ratgdo-bench

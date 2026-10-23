@@ -15,13 +15,15 @@ esphome-ratgdo opens its UART **inverted** (`begin(9600, 8N1, rx, tx, true)`). A
 
 | Function | ESP32 DevKit V1 | XIAO ESP32-C6 |
 |---|---|---|
-| Bus TX (`uart_tx_pin`) | GPIO22 (D22) | GPIO1 (D1) |
-| Bus RX (`uart_rx_pin`) | GPIO21 (D21) | GPIO2 (D2) |
-| Obstruction (`input_obst_pin`) | GPIO23 (D23) | GPIO21 (D3) |
+| Bus TX (`uart_tx_pin`) | GPIO2 (D2) | GPIO1 (D1) |
+| Bus RX (`uart_rx_pin`) | GPIO4 (D4) | GPIO2 (D2) |
+| Obstruction (`input_obst_pin`) | GPIO15 (D15) | GPIO21 (D3) |
 | To radio RXD (`mesh_tx_pin`, wired node or hub) | GPIO17 (TX2) | GPIO0 (D0) |
 | From radio TXD (`mesh_rx_pin`, wired node or hub) | GPIO16 (RX2) | GPIO17 (D7) |
 
 - **XIAO C6:** don't use D6/GPIO16 for the mesh TX. It's UART0 TX, and the boot ROM prints there at reset; the radio would broadcast that as a text message.
+- **DevKit V1:** every pin is in one run on the 30-pin header: `3V3 | GND | D15 (OBST) | D2 (TX) | D4 (RX) | RX2 | TX2`. An ESP-NOW garage node uses the first five; TX2/RX2 are only for the radio link (wired node or hub). These differ from upstream ratgdo's ESP32 pins (GPIO22/21/23) on purpose.
+- **DevKit V1 strapping pins:** GPIO2 and GPIO15 affect boot. TX's 10k base pull-down holds GPIO2 low at reset, which flashing needs; the board's blue LED on GPIO2 will flicker on transmit. OBST held low at reset only mutes the ROM boot log. Don't put RX or OBST on D2: the LED loads the 10k pull-up. ⚠ GPIO15 may toggle briefly during boot, before ratgdo starts.
 - **DevKit V1:** the serial logger is turned off in firmware (see `boards/esp32-devkit-v1.yaml`), because ratgdo hard-codes UART1 and ESPHome would otherwise give the radio link UART1 too. Read logs from the web UI or with `esphome logs` over OTA.
 - ⚠ Check your board's silkscreen against these GPIO numbers before wiring.
 

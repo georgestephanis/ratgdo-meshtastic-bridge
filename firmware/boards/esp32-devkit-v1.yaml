@@ -1,12 +1,18 @@
 # Board: ESP32 DevKit V1 (ESP32-WROOM-32, 30/38-pin). Same chip as upstream
-# ratgdo's v2.5 ESP32 board, so the opener pins match upstream's (wemos D1
-# mini32 D1/D2/D7 = GPIO22/21/23). Board label in brackets.
+# ratgdo's v2.5 ESP32 board. Board label in brackets.
+#
+# Every pin used here sits in one run on the 30-pin board's header:
+#   3V3 | GND | D15 OBST | D2 TX | D4 RX | RX2 | TX2 (radio, wired node or hub)
+# GPIO2 and GPIO15 are strapping pins. That's fine for these roles: TX's base
+# pull-down holds GPIO2 low at reset (needed for flashing; the blue LED on
+# GPIO2 flickers on transmit), and OBST low at reset only mutes the ROM boot
+# log. Don't move RX or OBST to GPIO2: the LED loads the 10k pull-up.
 
 substitutions:
   # Opener wire bus (garage node only; see docs/hardware.md)
-  uart_tx_pin: GPIO22       # [D22] to the TX transistor/optocoupler
-  uart_rx_pin: GPIO21       # [D21] from the RX optocoupler
-  input_obst_pin: GPIO23    # [D23] obstruction sensor line
+  uart_tx_pin: GPIO2        # [D2] to the TX transistor/optocoupler
+  uart_rx_pin: GPIO4        # [D4] from the RX transistor/optocoupler
+  input_obst_pin: GPIO15    # [D15] obstruction sensor line
   # Link to the Meshtastic radio's serial module (wired garage node, or hub)
   mesh_tx_pin: GPIO17       # [TX2] -> radio serial RXD
   mesh_rx_pin: GPIO16       # [RX2] <- radio serial TXD
