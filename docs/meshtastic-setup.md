@@ -11,6 +11,8 @@
        --port /dev/ttyACM0 --rxd 48 --txd 47 --baud 9600
    ```
 
+   **Pin numbers depend on the radio's chip.** On ESP32 radios they're GPIO numbers (Heltec V3/V4: e.g. 48/47). On **nRF52 radios they're the board's Arduino pin numbers**, not P0.xx/P1.xx: Meshtastic passes them straight to `Serial.setRx/setTx`. On a **Seeed XIAO nRF52840 kit** (Wio-SX1262), use D7/D6 → `--rxd 7 --txd 6`. The kit's GPS UART also sits on D6/D7, and the firmware starts it at boot **even with GPS disabled**, so it fights the Serial module for D6 and nothing reaches the ESP32 (you see `$PCAS`/`MSG…`-style GNSS setup text instead). Move the GPS UART to the unused NFC pads: set `position.rx_gpio` 31 and `position.tx_gpio` 30 (and `position.gps_mode DISABLED` if no GNSS is fitted). Verified on 2.7.26. That XIAO also reports itself over USB as `XIAO_BOOT` while running Meshtastic; that doesn't mean it's in the bootloader.
+
    `--rxd` is the radio pin that **receives** from the ESP32, i.e. the garage node (option A) or the hub (option B); wire it to `mesh_tx_pin`; `--txd` sends to the ESP32 (`mesh_rx_pin`). Close any phone app connected to the radio first: it takes the only client slot, and writes silently don't apply. Read the settings back with `--show`.
 
 4. Role: `CLIENT` is fine. If this radio is also your relay node at that site, `ROUTER_LATE` works too; the serial module doesn't care.

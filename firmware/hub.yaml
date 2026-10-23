@@ -79,7 +79,7 @@ interval:
               id(mesh_rx_line).clear();
               if (line.empty()) continue;
               id(mesh_last_radio_line) = line;
-              ESP_LOGD("hub", "radio: %s", line.c_str());
+              ESP_LOGI("hub", "radio: %s", line.c_str());
               // Only forward "<sender>: ${gdo_tag}!..." so ordinary chat on the
               // channel never leaves the hub.
               auto sep = line.find(": ");
