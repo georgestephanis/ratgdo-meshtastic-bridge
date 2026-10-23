@@ -8,8 +8,11 @@ ESPHome firmware plus glue that lets a ratgdo-controlled garage door opener (Sec
 commands over a Meshtastic LoRa mesh, so Home Assistant installs in other buildings can see and control it without
 Wi-Fi or internet at the garage.
 
-**Status: proposal, untested on hardware.** All firmwares compile for both supported boards, but nothing has run
-against a real opener. Don't describe anything as verified on hardware unless the user says it was.
+**Status: bench-verified, not yet on a real opener.** As of 2026-10-23 the BC337 level shifter passed the loopback
+test, and option B ran end to end on the bench (DevKit V1 garage node ⇄ ESP-NOW ⇄ ESP32-C3 hub ⇄ XIAO nRF52840 radio
+"GDO1" ⇄ private mesh ⇄ home HA). Nothing has talked to a Security+ opener yet (`sync_failed` on the bench), the
+obstruction input is untested, and the XIAO C6 and wired option A haven't run on hardware. Don't describe anything
+beyond that as verified unless the user says it was.
 
 The Security+ 2.0 work is done by the upstream [ratgdo/esphome-ratgdo](https://github.com/ratgdo/esphome-ratgdo)
 external component (GPL-3.0, pulled at build time, pinned by commit in `firmware/common.yaml`). This repo (MIT) only
