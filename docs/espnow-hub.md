@@ -15,7 +15,7 @@ Use this when the Meshtastic radio can't be wired to the opener: the radio needs
 | Hub | `firmware/mesh-hub.yaml` | the radio's serial pins (TX, RX, GND), same as the wired option |
 | Radio | stock Meshtastic, serial module in TEXTMSG mode | the hub |
 
-Both ESP32s can be either supported board (DevKit V1 or XIAO C6), in any mix.
+Both ESP32s can be either supported board (DevKit V1 or XIAO C6), in any mix. The hub can also be an **ESP32-C3 0.42" OLED mini** (`boards/esp32-c3-oled.yaml`; ABrobot/01Space clone, e.g. [this AliExpress listing](https://www.aliexpress.us/item/3256807156068355.html)). Its radio link is GPIO4 (TX → radio RXD) and GPIO3 (RX ← radio TXD); the OLED is unused. ⚠ A garage node on the C3 is untested.
 
 ## Why a hub rather than ESP-NOW inside the radio?
 
@@ -53,7 +53,7 @@ ESPHome's `espnow` component sends frames **unencrypted**, and a peer MAC is tri
    ```
    python3 -c "import secrets; print(secrets.token_hex(16))"
    ```
-2. **MAC addresses:** flash both devices once (the placeholder `peer_mac` is fine for this), then read each one's Wi-Fi MAC from its boot log or its web page (`esphome logs`, or the maintenance AP at http://192.168.4.1). Put the **hub's** MAC in `garage-espnow.yaml` → `peer_mac`, and the **garage node's** MAC in `mesh-hub.yaml` → `peer_mac`. Flash both again.
+2. **MAC addresses:** read each device's base MAC over USB with `uvx esptool --port <port> read-mac` (the ESP-NOW link sends from the station interface, whose MAC is the base MAC; the AP's MAC is one higher, so don't use that one). Put the **hub's** MAC in `garage-espnow.yaml` → `peer_mac`, and the **garage node's** MAC in `mesh-hub.yaml` → `peer_mac`. Flash both again.
 3. **Channel:** `wifi_channel` must match on both (default 6). ESP-NOW uses the maintenance AP's channel.
 4. **Radio:** configure its serial module exactly as for the wired option ([meshtastic-setup.md](meshtastic-setup.md)), wired to the **hub**.
 5. **Test:**

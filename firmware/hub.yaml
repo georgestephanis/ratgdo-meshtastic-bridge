@@ -31,6 +31,15 @@ globals:
   - id: mesh_rx_line
     type: std::string
     restore_value: false
+  # Wiring/diagnostic counters: every byte and the last line the radio printed,
+  # whether or not it was a command for the garage.
+  - id: mesh_rx_bytes
+    type: uint32_t
+    restore_value: false
+    initial_value: "0"
+  - id: mesh_last_radio_line
+    type: std::string
+    restore_value: false
 
 text_sensor:
   - platform: template
@@ -64,10 +73,13 @@ interval:
       - lambda: |-
           uint8_t c;
           while (id(mesh_uart).available() && id(mesh_uart).read_byte(&c)) {
+            id(mesh_rx_bytes) += 1;
             if (c == '\n' || c == '\r') {
               std::string line = id(mesh_rx_line);
               id(mesh_rx_line).clear();
               if (line.empty()) continue;
+              id(mesh_last_radio_line) = line;
+              ESP_LOGD("hub", "radio: %s", line.c_str());
               // Only forward "<sender>: ${gdo_tag}!..." so ordinary chat on the
               // channel never leaves the hub.
               auto sep = line.find(": ");

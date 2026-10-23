@@ -87,6 +87,10 @@ uvx esphome run garage-wired.yaml         # build + flash
 uvx esphome logs garage-wired.yaml        # logs over OTA
 ```
 
+`garage-wired.yaml` and `garage-espnow.yaml` share the device name, so they share `.esphome/build/garage-mesh-bridge/`.
+`esphome upload` flashes whatever was compiled last, which may be the other role. Flash with `esphome run` (it
+recompiles), or compile the same file immediately before `upload`.
+
 After firmware changes, compile **all three role files** (`garage-wired.yaml`, `garage-espnow.yaml`,
 `mesh-hub.yaml`), and if board-relevant, for both boards by switching the `board:` package line (don't commit the
 switch). There are no automated tests.

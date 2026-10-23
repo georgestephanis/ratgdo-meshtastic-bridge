@@ -11,10 +11,21 @@
 esphome:
   includes:
     - mesh_auth.h
+    - <esp_wifi.h>
   on_boot:
-    priority: 600
-    then:
-      - lambda: id(espnow_tx_counter) += 1000;
+    - priority: 600
+      then:
+        - lambda: id(espnow_tx_counter) += 1000;
+    # ESPHome's espnow registers every peer on the station interface, but
+    # maintenance.yaml runs Wi-Fi as an AP only, so sends fail with "Interface
+    # does not match". Add the station interface (no networks, so it never
+    # scans or leaves the AP's channel). Peers are then the base/STA MACs.
+    - priority: -100
+      then:
+        - lambda: |-
+            wifi_mode_t mode;
+            if (esp_wifi_get_mode(&mode) == ESP_OK && mode == WIFI_MODE_AP)
+              esp_wifi_set_mode(WIFI_MODE_APSTA);
 
 espnow:
   peers:

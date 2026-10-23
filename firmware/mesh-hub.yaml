@@ -15,11 +15,12 @@ substitutions:
   # Must match the garage node's wifi_channel.
   wifi_channel: "6"
   # The garage node's Wi-Fi MAC (printed in its log at boot, and on its web page).
-  peer_mac: "AA:BB:CC:00:00:01"
+  peer_mac: "70:4B:CA:26:0B:40"
   # Shared secret for the ESP-NOW link; the same value goes in the garage node.
   link_key: !secret espnow_link_key
 
 packages:
-  board: !include boards/esp32-devkit-v1.yaml      # or boards/xiao-esp32c6.yaml
+  board: !include boards/esp32-c3-oled.yaml        # or esp32-devkit-v1.yaml / xiao-esp32c6.yaml
   maintenance: !include maintenance.yaml
   hub: !include hub.yaml
+  display: !include hub-display-c3-oled.yaml       # C3 OLED board only; remove for other boards

@@ -1,0 +1,45 @@
+# Status on the ESP32-C3 OLED mini's 0.42" 72x40 display (hub only; needs
+# boards/esp32-c3-oled.yaml). Optional: leave this package out and the hub
+# runs the same. Four lines:
+#
+#   RX 1234         bytes the radio has sent the hub (wiring check: should grow)
+#   >closed         door state in the last status from the garage
+#   <status         last command forwarded to the garage
+#   radio text      last line the radio printed, scrolling if long
+
+i2c:
+  sda: GPIO5
+  scl: GPIO6
+  frequency: 400kHz
+
+font:
+  - file: "gfonts://Silkscreen"
+    id: small
+    size: 8
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 72x40"
+    address: 0x3C
+    rotation: 180       # as the badge project's U8G2_R2; set 0 if upside down
+    update_interval: 1s
+    lambda: |-
+      it.printf(0, 0, id(small), "RX %u", (unsigned) id(mesh_rx_bytes));
+
+      // "GDO1|door=closed|..." -> "closed"
+      std::string g = id(last_from_garage).state, door = "-";
+      auto d = g.find("door=");
+      if (d != std::string::npos) door = g.substr(d + 5, g.find('|', d) - d - 5);
+      it.printf(0, 10, id(small), ">%s", door.c_str());
+
+      // "HOMA: GDO1!close" -> "close"
+      std::string f = id(last_forwarded).state, cmd = "-";
+      auto b = f.find('!');
+      if (b != std::string::npos) cmd = f.substr(b + 1);
+      it.printf(0, 20, id(small), "<%s", cmd.c_str());
+
+      const std::string &r = id(mesh_last_radio_line);
+      static uint32_t tick = 0;
+      tick++;
+      size_t start = r.size() > 12 ? (tick % (r.size() - 11)) : 0;
+      it.print(0, 30, id(small), r.empty() ? "no radio txt" : r.substr(start, 12).c_str());

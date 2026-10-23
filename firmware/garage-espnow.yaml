@@ -21,9 +21,14 @@ substitutions:
   # Maintenance AP channel (and ESP-NOW channel, in the hub setup).
   wifi_channel: "6"
   # The hub's Wi-Fi MAC (printed in its log at boot, and on its web page).
-  peer_mac: "AA:BB:CC:00:00:02"
+  peer_mac: "88:56:A6:6C:EB:48"
   # Shared secret for the ESP-NOW link; the same value goes in the hub.
   link_key: !secret espnow_link_key
+
+# No radio UART on this node, so USB logging can stay on without colliding
+# with ratgdo's UART1 (the DevKit board file turns it off for the wired node).
+logger:
+  baud_rate: 115200
 
 packages:
   board: !include boards/esp32-devkit-v1.yaml      # or boards/xiao-esp32c6.yaml

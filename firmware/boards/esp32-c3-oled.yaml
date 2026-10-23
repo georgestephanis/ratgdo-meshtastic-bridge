@@ -1,0 +1,29 @@
+# Board: ESP32-C3 0.42" OLED mini (ABrobot / 01Space clone, 4 MB flash).
+# Used as the mesh hub; a garage node on it is untested. GPIO numbers are
+# printed on the board.
+#
+# Taken on this board: GPIO5/6 (OLED I2C + Qwiic), GPIO8 (blue LED,
+# strapping), GPIO9 (BOOT), GPIO18/19 (USB). Not GPIO21 for TX: it's UART0 TX
+# and the boot ROM prints there, which the radio would broadcast.
+
+substitutions:
+  # Opener wire bus (garage node only; untested on this board)
+  uart_tx_pin: GPIO0
+  uart_rx_pin: GPIO1
+  input_obst_pin: GPIO10
+  # Link to the Meshtastic radio's serial module (wired garage node, or hub)
+  mesh_tx_pin: GPIO4        # -> radio serial RXD
+  mesh_rx_pin: GPIO3        # <- radio serial TXD
+
+esp32:
+  board: esp32-c3-devkitm-1
+  variant: esp32c3
+  flash_size: 4MB
+  framework:
+    type: esp-idf
+
+# Logs go to the C3's built-in USB serial/JTAG, so both hardware UARTs stay
+# free for the radio link (and ratgdo's hard-coded UART1).
+logger:
+  level: INFO
+  hardware_uart: USB_SERIAL_JTAG
