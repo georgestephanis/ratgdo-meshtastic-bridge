@@ -4,7 +4,7 @@ Garage door status and control over a private **Meshtastic** LoRa mesh, for a ga
 
 A small ESP32 runs [`esphome-ratgdo`](https://github.com/ratgdo/esphome-ratgdo) to talk to a Security+ 2.0 opener (LiftMaster/Chamberlain), and reaches a Meshtastic radio either by three wires or through a small ESP-NOW hub. Status changes go out on the mesh as short text messages; commands come back the same way. Any Home Assistant with its own Meshtastic radio on the channel turns those messages into a normal garage door entity.
 
-> **Status: proposal, untested on hardware.** All three firmwares (wired garage node, ESP-NOW garage node, hub) compile for both boards below. Nothing here has been run against a real opener yet. Treat every ⚠ as something to check on the bench.
+> **Status: running on one real opener (option B, report-only).** Since 2026-10-26 a LiftMaster 8550W (Security+ 2.0) has been reporting real door and light changes over a multi-hop Meshtastic mesh to two Home Assistant installs in different houses, and `GDO1!status` round trips take about 7–25 s. Not yet verified: the **obstruction input** (it has read `blocked` continuously, even while the door closes normally), any command other than `status` (the install is report-only), power from the opener's battery-backup connector, the XIAO C6 board, and option A. Treat every ⚠ as something to check on the bench.
 
 ## Two ways to connect the radio
 
@@ -94,7 +94,7 @@ Wiring between the ESP32 that touches the radio (garage node in A, hub in B) and
    uvx esphome run garage-espnow.yaml                # option B, garage node
    uvx esphome run mesh-hub.yaml                     # option B, hub (then exchange MACs: docs/espnow-hub.md)
    ```
-3. **Home Assistant** (each house): copy `homeassistant/packages/garage_mesh.yaml` into `/config/packages/`, change the `CHANGE ME` values (channel notify entity, tag), restart. See [docs/home-assistant.md](docs/home-assistant.md).
+3. **Home Assistant** (each house): copy `homeassistant/packages/garage_mesh.yaml` (control) or `garage_mesh_display.yaml` (display only) into `/config/packages/`, change the `CHANGE ME` values (channel notify entity, tag), restart. Optionally add the dashboard in `homeassistant/dashboards/`. See [docs/home-assistant.md](docs/home-assistant.md).
 4. **Test:** press "Send status to mesh" on the garage node's web page (maintenance AP), check `sensor.garage_door_mesh` updates in HA, then send `GDO1!status` from a phone app.
 
 ## Repository layout
@@ -114,7 +114,9 @@ firmware/
   bench-loopback.yaml        opener-free test of the level-shifting circuit
   secrets.yaml.example
 meshtastic/configure_radio.py   enables the radio's serial module (TEXTMSG)
-homeassistant/packages/garage_mesh.yaml   receiving side: sensors, cover, command script
+homeassistant/packages/garage_mesh.yaml           receiving side: sensors, cover, command script
+homeassistant/packages/garage_mesh_display.yaml   receiving side, display only: sensors + status request
+homeassistant/dashboards/garage_mesh.yaml         dashboard view for either package
 docs/                        hardware, radio, ESP-NOW hub, HA, and the future in-radio ESP-NOW idea
 ```
 

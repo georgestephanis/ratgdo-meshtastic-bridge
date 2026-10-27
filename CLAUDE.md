@@ -8,10 +8,12 @@ ESPHome firmware plus glue that lets a ratgdo-controlled garage door opener (Sec
 commands over a Meshtastic LoRa mesh, so Home Assistant installs in other buildings can see and control it without
 Wi-Fi or internet at the garage.
 
-**Status: bench-verified, not yet on a real opener.** As of 2026-10-23 the BC337 level shifter passed the loopback
-test, and option B ran end to end on the bench (DevKit V1 garage node ⇄ ESP-NOW ⇄ ESP32-C3 hub ⇄ XIAO nRF52840 radio
-"GDO1" ⇄ private mesh ⇄ home HA). Nothing has talked to a Security+ opener yet (`sync_failed` on the bench), the
-obstruction input is untested, and the XIAO C6 and wired option A haven't run on hardware. Don't describe anything
+**Status: installed and running on a real opener, report-only.** Since 2026-10-26 option B (DevKit V1 garage node ⇄
+ESP-NOW ⇄ ESP32-C3 hub ⇄ XIAO nRF52840 radio "GDO1") has been on a LiftMaster 8550W, sending real door/light states
+over the private mesh to two house HAs (display-only package), and `GDO1!status` gets `ack_status` back in ~7–25 s.
+Still unverified: the obstruction input (reads `blocked` continuously, even while the door closes normally), every
+command except `status` (`allowed_senders` is empty), no `ev=boot` has been seen after install, battery-backup power,
+the XIAO C6 board, and wired option A. Don't describe anything
 beyond that as verified unless the user says it was.
 
 The Security+ 2.0 work is done by the upstream [ratgdo/esphome-ratgdo](https://github.com/ratgdo/esphome-ratgdo)
@@ -54,8 +56,10 @@ command: GDO1!<close|open|stop|light_on|light_off|status>
 ev:      boot, change, heartbeat, manual, sync_failed, ack_<cmd>, denied_open, unknown_cmd
 ```
 
-`GDO1` is the `gdo_tag` substitution. The protocol is duplicated in three places that must stay in sync:
-`common.yaml` (producer/parser), `homeassistant/packages/garage_mesh.yaml` (consumer), and the README.
+`GDO1` is the `gdo_tag` substitution. The protocol is duplicated in these places, which must stay in sync:
+`common.yaml` (producer/parser), `homeassistant/packages/garage_mesh.yaml` and `garage_mesh_display.yaml`
+(consumers), and the README. The two HA packages must keep the same entity IDs and script name so
+`homeassistant/dashboards/garage_mesh.yaml` works with either.
 
 Behavioral invariants:
 
@@ -113,5 +117,5 @@ uvx --from meshtastic python meshtastic/configure_radio.py --port /dev/ttyACM0 -
 ## Docs
 
 `docs/hardware.md` (wiring, level shifting, power), `docs/meshtastic-setup.md`, `docs/espnow-hub.md`,
-`docs/home-assistant.md`, `docs/future-meshtastic-espnow-module.md`. When behavior, pins, or the protocol change,
+`docs/home-assistant.md` (both packages, dashboard), `docs/future-meshtastic-espnow-module.md`. When behavior, pins, or the protocol change,
 update the README and the relevant doc in the same change. Mark untested assumptions with ⚠, matching the README.

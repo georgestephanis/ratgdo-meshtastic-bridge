@@ -1,0 +1,85 @@
+# Home Assistant dashboard view for the garage mesh bridge.
+#
+# Works with either package (garage_mesh.yaml or garage_mesh_display.yaml):
+# both define the same entities and script. To use it, create a dashboard
+# (Settings > Dashboards > Add dashboard > New dashboard from scratch), open it,
+# choose Edit > Raw configuration editor, and paste this file in.
+#
+# With the full package you can add a tile for cover.garage_door_mesh to get
+# open/close buttons. It's left out here so the same view is safe on a
+# display-only HA.
+
+title: Garage
+views:
+  - title: Garage
+    path: garage
+    icon: mdi:garage
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Garage door
+            icon: mdi:garage
+          - type: tile
+            entity: sensor.garage_door_mesh
+            name: Door
+            state_content: [state, last_changed]
+            grid_options: {columns: 12}
+          - type: tile
+            entity: binary_sensor.garage_light_mesh
+            name: Light
+            state_content: [state, last_changed]
+          - type: tile
+            entity: binary_sensor.garage_obstruction_mesh
+            name: Obstruction
+            state_content: [state, last_changed]
+          - type: tile
+            entity: binary_sensor.garage_mesh_link_stale
+            name: Radio link
+            grid_options: {columns: 12}
+          - type: markdown
+            grid_options: {columns: 12}
+            content: >-
+              {% set r = state_attr('sensor.garage_door_mesh', 'received') %}
+              {% if r %}{% set t = as_datetime(r) %}
+              **Last message from the garage:** {{ t.strftime('%a %b %-d, %-I:%M %p') }} ({{ relative_time(t) }} ago)
+
+              **Last event:** {{ state_attr('sensor.garage_door_mesh', 'event') }}
+              {% else %}**No message received from the garage since HA started.**{% endif %}
+
+
+              {% if is_state('binary_sensor.garage_mesh_link_stale', 'on') %}⚠️ **Nothing heard from the garage in over 13 hours.** The radio link may be down, so the door state above may be out of date.{% else %}✅ Radio link OK (the garage checks in at least every 6 hours, and on every change).{% endif %}
+          - type: button
+            name: Ask the garage for an update
+            icon: mdi:refresh
+            show_state: false
+            grid_options: {columns: 12, rows: 1}
+            tap_action:
+              action: perform-action
+              perform_action: script.garage_mesh_command
+              data:
+                command: status
+              confirmation:
+                text: "Send a status request to the garage over the mesh? A reply usually takes 10–60 seconds."
+      - type: grid
+        cards:
+          - type: heading
+            heading: History
+          - type: history-graph
+            title: Last 48 hours
+            hours_to_show: 48
+            grid_options: {columns: 12}
+            entities:
+              - {entity: sensor.garage_door_mesh, name: Door}
+              - {entity: binary_sensor.garage_light_mesh, name: Light}
+              - {entity: binary_sensor.garage_mesh_link_stale, name: Link stale}
+          - type: logbook
+            title: Recent activity
+            hours_to_show: 168
+            grid_options: {columns: 12}
+            entities:
+              - sensor.garage_door_mesh
+              - binary_sensor.garage_light_mesh
+              - binary_sensor.garage_mesh_link_stale

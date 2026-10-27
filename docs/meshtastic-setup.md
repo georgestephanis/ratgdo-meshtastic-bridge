@@ -42,6 +42,17 @@ From the firmware's `SerialModule.cpp`:
 
 Nothing special: they only need to be on the same channel, with the HA Meshtastic integration connected. Their short names go in the bridge's `allowed_senders`.
 
+## Checking the link both ways
+
+LoRa links can work in one direction only. A house radio can hear the garage and the rest of the mesh perfectly while nothing it sends gets out, so its HA shows the door fine but `status` requests (and anything else it sends) never arrive. In the original install, one house radio ran like this for 10 days without anyone noticing: from its own side and in its HA it looked healthy.
+
+- **"Last heard" only covers the receive direction.** A node's own node list shows what it hears. To know whether others hear *it*, look at its entry in another node's list, or test.
+- **Traceroute in both directions.** From the Python API: `sendData(mesh_pb2.RouteDiscovery(), destinationId=<node>, portNum=TRACEROUTE_APP, wantResponse=True)`, once from each end. A reply lists the relays and the SNR of each hop. If the request gets through but the reply doesn't, the sender logs `MAX_RETRANSMIT`.
+- **`relayNode`** in received packets (firmware 2.6+) is the last byte of the node ID that rebroadcast the packet. It shows which relay is actually carrying traffic.
+- **Hop limit:** `hopStart − hopLimit` on a received packet is how many hops it used. If packets from a site arrive with no hops left, raise `lora.hop_limit` on that site's radio (the default is 3; the sender's setting is what counts).
+- **A one-way gap** with comparable radios on both ends points at the weak side's transmit path: a loose U.FL antenna connector, a damaged antenna, or a power amplifier damaged by transmitting without an antenna. A side-by-side check with a known-good radio shows it: two healthy radios a few feet apart should hear each other at similar RSSI. Moving the weak radio higher or into a window, or adding a relay beside it (a second radio with role `ROUTER_LATE`), fixed the original case.
+- `lora.tx_power` above the board's maximum (e.g. 30 on a ~22 dBm board) is silently capped by the firmware, so raising it past that doesn't help.
+
 ## Airtime
 
 On LongFast, a ~50-byte text takes about 1 s of airtime, and every relay repeats it. The bridge sends one message per state change, folds bursts together, and sends a heartbeat every 6 h. Don't shorten the heartbeat much on a busy mesh.
